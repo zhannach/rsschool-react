@@ -1,4 +1,4 @@
-module.export = {
+{
   "parser": "@typescript-eslint/parser", 
   "extends": [
     "plugin:react/recommended",
