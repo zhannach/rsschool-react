@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
-import style from '../pages/Home.module.scss';
+import style from '../assets/styles/Home.module.scss';
 
 export default class Layout extends React.Component {
   render() {
