@@ -1,8 +1,17 @@
 @import './normalize.css';
 
-
 $header-color: rgb(91, 103, 127);
 $btn-color: rgb(77, 110, 176);
+
+@mixin btn {
+  width: 80px;
+  height: 40px;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
 
 body {
   margin: 0;
@@ -60,7 +69,7 @@ body {
 .btn {
   width: 100px;
   height: 45px;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-weight: 600;
   border-radius: 10px;
   margin-left: 10px;
@@ -81,4 +90,67 @@ body {
   left: 10px;
   top: 13%;
   color: rgba(104, 108, 117, 0.6);
+}
+
+// cards
+
+.cards{
+  margin: 80px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  row-gap: 50px;
+  column-gap: 50px;
+}
+
+.card {
+  display: flex;
+  height: 350px;
+  width: 30%;
+  column-gap: 15px;
+  
+  & img {
+    height: auto;
+  }
+}
+
+.info-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  row-gap: 10px;
+}
+
+.info {
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.info-text {
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: 1.4rem;
+}
+
+.btns {
+  display: flex;
+  column-gap: 10px;
+  margin-top: 10px
+}
+
+.btn-buy {
+  @include btn();
+  background-color: $btn-color;
+  &:hover {
+    background-color: rgb(39, 57, 92)
+  }
+}
+
+.btn-add {
+  @include btn();
+  background-color: rgb(179, 168, 229);
+  &:hover {
+    background-color: rgb(149, 141, 188) 
+  }
+
 }

@@ -12,7 +12,7 @@ export default class Layout extends React.Component {
           <Link to="/about">About Us</Link>
         </header>
 
-        <Outlet/>
+        <Outlet />
 
         <footer></footer>
       </>
