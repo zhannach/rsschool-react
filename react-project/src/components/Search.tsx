@@ -3,11 +3,27 @@ import React from 'react';
 import styles from '../assets/styles/Home.module.scss';
 
 export default class Search extends React.Component {
+  state = {
+    value: localStorage.getItem('searchValue') || '',
+  };
+
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ value: e.target.value });
+    localStorage.setItem('searchValue', e.target.value);
+  };
+
   render() {
+    const { value } = this.state;
+
     return (
       <>
         <section className={styles.search}>
-          <input type="search" className={styles.input} value=""></input>
+          <input
+            type="search"
+            className={styles.input}
+            value={value}
+            onChange={this.handleChange}
+          ></input>
           <svg
             aria-hidden="true"
             className={styles.svg}
