@@ -13,7 +13,7 @@
     "strict": true,
     "skipLibCheck": true,
     "baseUrl": "./src",
-    "resolveJsonModule": true
+    "resolveJsonModule": true  
   },
-  "include": ["./src/**/*", "styled.d.ts"]
+  "include": ["vite.config.ts", "./src/**/*", "styled.d.ts",]
 }
