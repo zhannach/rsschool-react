@@ -1,15 +1,19 @@
 import React from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { NavLink, Link, Outlet } from 'react-router-dom';
 
-import style from '../assets/styles/Home.module.scss';
+import style from '../assets/styles/Header.module.scss';
 
 export default class Layout extends React.Component {
   render() {
     return (
       <>
         <header className={style.header}>
-          <Link to="/">Home</Link>
-          <Link to="/about">About Us</Link>
+          <NavLink to="/" className={({ isActive }) => (isActive ? style['active-link'] : '')}>
+            Home
+          </NavLink>
+          <NavLink to="/about" className={({ isActive }) => (isActive ? style['active-link'] : '')}>
+            About Us
+          </NavLink>
         </header>
 
         <Outlet />
