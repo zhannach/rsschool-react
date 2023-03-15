@@ -7,9 +7,12 @@ export default class Search extends React.Component {
     value: localStorage.getItem('searchValue') || '',
   };
 
+  componentWillUnmount() {
+    localStorage.setItem('searchValue', this.state.value);
+  }
+
   handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ value: e.target.value });
-    localStorage.setItem('searchValue', e.target.value);
   };
 
   render() {
