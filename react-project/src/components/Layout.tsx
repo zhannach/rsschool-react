@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink, Link, Outlet } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 
 import style from '../assets/styles/Header.module.scss';
 
@@ -18,7 +18,9 @@ export default class Layout extends React.Component {
 
         <Outlet />
 
-        <footer></footer>
+        <footer className={style.footer}>
+          <h2>RS-School 2023</h2>
+        </footer>
       </>
     );
   }
