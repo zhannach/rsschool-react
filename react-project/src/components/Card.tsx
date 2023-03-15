@@ -9,7 +9,7 @@ export default class Card extends React.Component<{ card: Book }> {
     const { card } = this.props;
     return (
       <div className={style.card}>
-        <img src={`/src/${card.imageLink}`} className={style.img} alt={card.title}></img>
+        <img src={`${card.imageLink}`} className={style.img} alt={card.title}></img>
         <div className={style['info-section']}>
           <h3 className={style.info}>
             <p className={style['info-text']}>Title: </p>
