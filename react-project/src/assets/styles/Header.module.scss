@@ -3,10 +3,11 @@
 .header {
   width: 100%;
   height: 70px;
+  padding: 0 120px;
   background-color: $header-color;
   color: #fff;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   column-gap: 50px;
 
@@ -14,6 +15,7 @@
     color: #fff;
     font-size: 2rem;
     text-decoration: none;
+    margin: 0 40px;
     &:hover {
       color: rgb(39, 57, 92);
     }
@@ -22,6 +24,14 @@
   & a.active-link {
     color: $btn-color-light;
     font-size: 2.5rem;
+  }
+  & li {
+    display: inline-block;
+  }
+
+  &-title{
+    font-size: 3.5rem;
+    font-weight: 700;
   }
 }
 
