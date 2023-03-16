@@ -1,10 +1,12 @@
+import React from 'react';
+
 import { describe, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import Home from '../pages/Home';
-import React from 'react';
 import Search from '../components/Search';
+import About from '../pages/About';
 
 describe('Search', () => {
   it('renders search input', () => {
@@ -56,5 +58,12 @@ describe('Cards', () => {
     expect(screen.getAllByRole('img')).toHaveLength(12);
     expect(screen.getAllByText(/buy/i)).toHaveLength(12);
     expect(screen.getAllByText(/add/i)).toHaveLength(12);
+  });
+});
+
+describe('About', () => {
+  it('renders about page', () => {
+    render(<About />);
+    expect(screen.getByText(/About us/i)).toBeInTheDocument();
   });
 });
