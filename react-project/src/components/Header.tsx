@@ -9,6 +9,7 @@ class Header extends React.Component<WithRouterProps> {
     const title: Record<string, string> = {
       '/': 'Home',
       '/about': 'About Us',
+      '/form': 'Form Page',
     };
     const pathname = this.props.location.pathname;
     return (
@@ -31,6 +32,14 @@ class Header extends React.Component<WithRouterProps> {
                   className={({ isActive }) => (isActive ? style['active-link'] : '')}
                 >
                   About Us
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/form"
+                  className={({ isActive }) => (isActive ? style['active-link'] : '')}
+                >
+                  Form Page
                 </NavLink>
               </li>
             </ul>
