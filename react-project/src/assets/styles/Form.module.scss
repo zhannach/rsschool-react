@@ -1,0 +1,166 @@
+@import './normalize.css';
+@import './variables.scss';
+
+.container {
+  margin: 80px auto;
+}
+
+.form-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  font-size: 3rem;
+  text-align: center;
+}
+
+.form {
+  margin: 50px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  row-gap: 25px;
+
+  & label {
+    font-size: 1.7rem;
+  }
+
+  & .text {
+    font-size: 1.5rem;
+  }
+
+  & input[type='text'] {
+    width: 210px;
+    height: 35px;
+    border: 1.5px solid $header-color;
+    margin-left: 15px;
+    padding: 8px;
+    font-size: 1.5rem;
+    border-radius: 5px;
+  }
+
+  & input[type='date'] {
+    width: 210px;
+    height: 35px;
+    border: 1.5px solid $header-color;
+    margin-left: 15px;
+    padding: 8px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+  }
+
+  & select {
+    width: 200px;
+    height: 38px;
+    border: 1.5px solid $header-color;
+    margin-left: 15px;
+    padding: 7px;
+    font-size: 1.4rem;
+    border-radius: 5px;
+    background-color: #fff;
+  }
+
+  & input[type='checkbox'] {
+    display: inline-block;
+    place-content: center;
+    width: 28px;
+    height: 30px;
+    margin: 10px 10px 0 15px;
+    padding: 8px;
+    accent-color: $btn-color;
+  }
+
+  & input[type='file'] {
+    margin-left: 15px;
+
+    &::-webkit-file-upload-button {
+      visibility: hidden;
+    }
+
+    &::before {
+      content: 'Select image';
+      display: inline-block;
+      background: linear-gradient(top, #f9f9f9, #e3e3e3);
+      border: 1.5px solid $header-color;
+      width: 180px;
+      height: 35px;
+      border-radius: 3px;
+      padding: 5px 8px;
+      outline: none;
+      white-space: nowrap;
+      cursor: pointer;
+      text-shadow: 1px 1px #fff;
+      font-size: 1.5rem;
+    }
+    &:hover::before {
+      border-color: black;
+    }
+    &:active::before {
+      background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+    }
+  }
+
+  & button {
+    @include btn;
+    background-color: $btn-color;
+    width: 120px;
+    align-self: center;
+  }
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+  margin-left: 30px;
+  & input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 15px;
+  left: 0;
+  right: 0;
+  bottom: -15px;
+  border-radius: 34px;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: '';
+  height: 22px;
+  width: 22px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: $btn-color-light;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
