@@ -1,5 +1,5 @@
 @import './normalize.css';
-@import './variables.scss';
+@import './_variables.scss';
 
 .container {
   margin: 80px auto;
@@ -24,6 +24,13 @@
   align-items: flex-start;
   row-gap: 25px;
 
+  & .message {
+    text-align: center;
+    font-size: 1.3rem;
+    font-style: italic;
+    margin-top: 10px;
+  }
+
   & label {
     font-size: 1.7rem;
   }
@@ -40,6 +47,16 @@
     padding: 8px;
     font-size: 1.5rem;
     border-radius: 5px;
+    &:focus {
+      border: 1.5px solid $focus-color;
+      box-shadow: 0px 0px 2px 2px $focus-color;
+    }
+    &.error {
+      border: 1.5px solid $error-color;
+      box-shadow: 0px 0px 3px 3px $error-color;
+      border-radius: 10px;
+      text-align: center;
+    }
   }
 
   & input[type='date'] {
@@ -50,6 +67,15 @@
     padding: 8px;
     font-size: 1.2rem;
     border-radius: 5px;
+    &:focus {
+      border: 1.5px solid $focus-color;
+      box-shadow: 0px 0px 2px 2px $focus-color;
+    }
+    &.error {
+      border: 1.5px solid $error-color;
+      box-shadow: 0px 0px 3px 3px $error-color;
+      border-radius: 10px;
+    }
   }
 
   & select {
@@ -61,6 +87,15 @@
     font-size: 1.4rem;
     border-radius: 5px;
     background-color: #fff;
+    &:focus {
+      border: 1.5px solid $focus-color;
+      box-shadow: 0px 0px 2px 2px $focus-color;
+    }
+    &.error {
+      border: 1.5px solid $error-color;
+      box-shadow: 0px 0px 3px 3px $error-color;
+      border-radius: 10px;
+    }
   }
 
   & input[type='checkbox'] {
@@ -71,10 +106,54 @@
     margin: 10px 10px 0 15px;
     padding: 8px;
     accent-color: $btn-color;
+    &.error {
+      border: 1.5px solid $error-color;
+    }
+  }
+
+  & input[type='radio'] {
+    appearance: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1.5px solid $header-color;
+    margin: 0 5px 0 15px;
+    padding: 8px;
+    place-content: center;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      transform: scale(0);
+      transition: 120ms transform ease-in-out;
+      box-shadow: inset 1em 1em var(--form-control-color);
+    }
+
+    &:checked::before {
+      transform: scale(1);
+      background-color: $btn-color;
+      display: flex;
+    }
+    &:focus {
+      border: 1.5px solid $focus-color;
+      box-shadow: 0px 0px 2px 2px $focus-color;
+    }
+    &.error {
+      border: 1.5px solid $error-color;
+      box-shadow: 0px 0px 3px 3px $error-color;
+      border-radius: 10px;
+    }
   }
 
   & input[type='file'] {
     margin-left: 15px;
+    width: 180px;
 
     &::-webkit-file-upload-button {
       visibility: hidden;
@@ -95,11 +174,17 @@
       text-shadow: 1px 1px #fff;
       font-size: 1.5rem;
     }
-    &:hover::before {
-      border-color: black;
-    }
     &:active::before {
       background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+    }
+    &:focus {
+      border: 1.5px solid $focus-color;
+      box-shadow: 0px 0px 2px 2px $focus-color;
+    }
+    &.error {
+      border: 1.5px solid $error-color;
+      box-shadow: 0px 0px 3px 3px $error-color;
+      border-radius: 10px;
     }
   }
 
@@ -109,58 +194,4 @@
     width: 120px;
     align-self: center;
   }
-}
-
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 30px;
-  margin-left: 30px;
-  & input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-}
-
-/* The slider */
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 15px;
-  left: 0;
-  right: 0;
-  bottom: -15px;
-  border-radius: 34px;
-  background-color: #ccc;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: '';
-  height: 22px;
-  width: 22px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-  border-radius: 50%;
-}
-
-input:checked + .slider {
-  background-color: $btn-color-light;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196f3;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
 }
