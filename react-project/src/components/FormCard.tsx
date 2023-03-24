@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Item } from 'types/form';
 import styles from '../assets/styles/FormPage.module.scss';
 
 export default class FormCard extends React.Component<{ data: Item }> {

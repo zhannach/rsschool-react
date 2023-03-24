@@ -28,7 +28,7 @@ const validateInput = (name: string, value: string): string => {
     case 'language':
     case 'img':
       if (value === '') {
-        return 'Field is required. Please, select image.';
+        return 'Field is required. Please, select option.';
       }
       break;
     case 'cover':

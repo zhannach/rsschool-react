@@ -14,6 +14,7 @@ export default class FileInput extends React.Component<{
           ref={this.props.link}
           type="file"
           name="img"
+          accept="image/*"
           className={this.props.message ? styles.error : ''}
         />
         {this.props.message && <p className={styles.message}>{this.props.message}</p>}
