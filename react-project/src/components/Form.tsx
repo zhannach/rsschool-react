@@ -1,6 +1,7 @@
 import React, { createRef } from 'react';
 
 import validateInput from '../helpers/validateInput';
+import { Item } from 'types/form';
 
 import styles from '../assets/styles/Form.module.scss';
 
@@ -11,7 +12,7 @@ import DateInput from '../components/Inputs/DateInput';
 import TextInput from '../components/Inputs/TextInput';
 import FileInput from '../components/Inputs/FileInput';
 
-export default class Form extends React.Component {
+export default class Form extends React.Component<{ setFormData: (formData: Item) => void }> {
   authorRef = createRef<HTMLInputElement>();
   publishRef = createRef<HTMLInputElement>();
   langRef = createRef<HTMLSelectElement>();
@@ -39,10 +40,18 @@ export default class Form extends React.Component {
       cover: '',
       img: '',
     },
+    isSaved: false,
   };
 
   onSubmitForm = (event: React.FormEvent) => {
     event.preventDefault();
+    let localImageUrl = '';
+    console.log(this.imgFileRef.current?.files);
+    if (this.imgFileRef.current?.files && this.imgFileRef.current.files?.length !== 0) {
+      console.log(this.imgFileRef.current?.files);
+      const imageFile = this.imgFileRef.current?.files[0];
+      localImageUrl = URL.createObjectURL(imageFile);
+    }
     const data = {
       author: this.authorRef.current?.value as string,
       publishDate: this.publishRef.current?.value as string,
@@ -53,9 +62,8 @@ export default class Form extends React.Component {
       cover: `${this.coverSoftRef.current?.checked ? 'softcover' : ''}${
         this.coverHardRef.current?.checked ? 'hardcover' : ''
       }`,
-      img: this.imgFileRef.current?.value as string,
+      img: localImageUrl,
     };
-
     const errors = { ...this.state.errors };
     let hasErrors = false;
     for (const [key, value] of Object.entries(data)) {
@@ -69,14 +77,16 @@ export default class Form extends React.Component {
       errors,
     });
     if (!hasErrors) {
+      this.props.setFormData(data);
+      this.setState(() => ({ isSaved: true }));
+      setTimeout(() => {
+        this.setState(() => ({ isSaved: false }));
+      }, 1000);
       this.formRef.current?.reset();
-      alert('data was saved');
     }
   };
 
   render() {
-    const data = this.state.data;
-    console.log(this.formRef.current);
     return (
       <form className={styles.form} onSubmit={this.onSubmitForm} ref={this.formRef}>
         <TextInput message={this.state.errors.author} link={this.authorRef} />
@@ -92,6 +102,7 @@ export default class Form extends React.Component {
         />
         <FileInput message={this.state.errors.img} link={this.imgFileRef} />
         <button type="submit">Submit</button>
+        {this.state.isSaved && <span className={styles.save}>Data has been save</span>}
       </form>
     );
   }
