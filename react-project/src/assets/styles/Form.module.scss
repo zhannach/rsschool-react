@@ -46,7 +46,6 @@
     padding: 8px;
     font-size: 1.5rem;
     border-radius: 5px;
-    text-align: start;
     &:focus {
       border: 1.5px solid $focus-color;
       box-shadow: 0px 0px 2px 2px $focus-color;
@@ -55,7 +54,6 @@
       border: 1.5px solid $error-color;
       box-shadow: 0px 0px 3px 3px $error-color;
       border-radius: 10px;
-      text-align: center;
     }
   }
 

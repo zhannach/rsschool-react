@@ -14,7 +14,7 @@ export default class TextInput extends React.Component<{
           ref={this.props.link}
           type="text"
           name="author"
-          placeholder="Full name"
+          placeholder="Surname"
           className={this.props.message ? styles.error : ''}
         ></input>
         {this.props.message && <p className={styles.message}>{this.props.message}.</p>}

@@ -24,7 +24,6 @@ export default class FormPage extends React.Component {
           <div className={styles['form-list']}>
             {this.state.cards.length > 0
               ? this.state.cards.map((card: Item) => {
-                  console.log(card);
                   return <FormCard data={card} key={card.publishDate} />;
                 })
               : ''}

@@ -1,8 +1,14 @@
 const validateInput = (name: string, value: string): string => {
   switch (name) {
     case 'author':
-      if (!value || value === '' || value.length < 3 || !value.match(/^[a-zA-Z]+$/)) {
-        return 'Field is required. Please, enter at least 3 character.';
+      if (
+        !value ||
+        value === '' ||
+        value.length < 3 ||
+        value.length > 15 ||
+        !value.match(/^[a-zA-Z]+$/)
+      ) {
+        return 'Field is required. Please, enter at least 3 character';
       }
       break;
     case 'publishDate':

@@ -46,9 +46,7 @@ export default class Form extends React.Component<{ setFormData: (formData: Item
   onSubmitForm = (event: React.FormEvent) => {
     event.preventDefault();
     let localImageUrl = '';
-    console.log(this.imgFileRef.current?.files);
     if (this.imgFileRef.current?.files && this.imgFileRef.current.files?.length !== 0) {
-      console.log(this.imgFileRef.current?.files);
       const imageFile = this.imgFileRef.current?.files[0];
       localImageUrl = URL.createObjectURL(imageFile);
     }
@@ -88,7 +86,12 @@ export default class Form extends React.Component<{ setFormData: (formData: Item
 
   render() {
     return (
-      <form className={styles.form} onSubmit={this.onSubmitForm} ref={this.formRef}>
+      <form
+        className={styles.form}
+        onSubmit={this.onSubmitForm}
+        ref={this.formRef}
+        data-testid="form"
+      >
         <TextInput message={this.state.errors.author} link={this.authorRef} />
         <DateInput message={this.state.errors.publishDate} link={this.publishRef} />
         <SelectInput message={this.state.errors.language} link={this.langRef} />
@@ -102,7 +105,11 @@ export default class Form extends React.Component<{ setFormData: (formData: Item
         />
         <FileInput message={this.state.errors.img} link={this.imgFileRef} />
         <button type="submit">Submit</button>
-        {this.state.isSaved && <span className={styles.save}>Data has been save</span>}
+        {this.state.isSaved && (
+          <span data-testid="saved-message" className={styles.save}>
+            Data has been save
+          </span>
+        )}
       </form>
     );
   }
