@@ -18,7 +18,7 @@ export default class FormCard extends React.Component<{ data: Item }> {
             {this.props.data.publishDate}
           </span>
           <span className={styles.info}>
-            <p className={styles['info-text']}>Launguage: </p>
+            <p className={styles['info-text']}>Language: </p>
             {this.props.data.language}
           </span>
           <span className={styles.info}>
