@@ -54,7 +54,7 @@ export default class Form extends React.Component<{ setFormData: (formData: Item
       author: this.authorRef.current?.value as string,
       publishDate: this.publishRef.current?.value as string,
       language: this.langRef.current?.value as string,
-      subscribe: `${this.subscribeAuthorRef.current?.checked ? 'author' : ''}${
+      subscribe: `${this.subscribeAuthorRef.current?.checked ? 'author' : ''} ${
         this.subscribeGenreRef.current?.checked ? 'genre' : ''
       }`,
       cover: `${this.coverSoftRef.current?.checked ? 'softcover' : ''}${
@@ -85,6 +85,7 @@ export default class Form extends React.Component<{ setFormData: (formData: Item
   };
 
   render() {
+    console.log(this.subscribeAuthorRef.current?.checked);
     return (
       <form
         className={styles.form}
@@ -97,7 +98,7 @@ export default class Form extends React.Component<{ setFormData: (formData: Item
         <SelectInput message={this.state.errors.language} link={this.langRef} />
         <CheckboxInput
           message={this.state.errors.subscribe}
-          link={[this.subscribeGenreRef, this.subscribeAuthorRef]}
+          link={[this.subscribeAuthorRef, this.subscribeGenreRef]}
         />
         <RadioInput
           message={this.state.errors.cover}
