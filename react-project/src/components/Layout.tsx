@@ -4,18 +4,18 @@ import Header from './Header';
 
 import style from '../assets/styles/Header.module.scss';
 
-export default class Layout extends React.Component {
-  render() {
-    return (
-      <>
-        <Header />
+const Layout = () => {
+  return (
+    <>
+      <Header />
 
-        <Outlet />
+      <Outlet />
 
-        <footer className={style.footer}>
-          <h2>RS-School 2023</h2>
-        </footer>
-      </>
-    );
-  }
-}
+      <footer className={style.footer}>
+        <h2>RS-School 2023</h2>
+      </footer>
+    </>
+  );
+};
+
+export default Layout;
