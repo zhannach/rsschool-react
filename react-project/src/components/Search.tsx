@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import styles from '../assets/styles/Home.module.scss';
 
@@ -7,10 +7,14 @@ const Search = () => {
     const initialValue = localStorage.getItem('searchValue') as string;
     return initialValue || '';
   });
+  const searchRef = useRef('');
+  searchRef.current = searchValue;
 
   useEffect(() => {
-    return () => localStorage.setItem('searchValue', searchValue);
-  }, [searchValue]);
+    return () => {
+      localStorage.setItem('searchValue', searchRef.current);
+    };
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
@@ -19,12 +23,7 @@ const Search = () => {
   return (
     <>
       <section className={styles.search}>
-        <input
-          type="search"
-          className={styles.input}
-          value={searchValue}
-          onChange={handleChange}
-        ></input>
+        <input type="search" value={searchValue} className={styles.input} onChange={handleChange} />
         <svg
           aria-hidden="true"
           className={styles.svg}
