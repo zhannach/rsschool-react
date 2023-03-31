@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Form from '../components/Form';
 import { Item } from 'types/form';
@@ -6,30 +6,28 @@ import { Item } from 'types/form';
 import styles from '../assets/styles/FormPage.module.scss';
 import FormCard from '../components/FormCard';
 
-export default class FormPage extends React.Component {
-  state = {
-    cards: [],
+const FormPage = () => {
+  const [cards, setCards] = useState<Item[]>([]);
+
+  const setFormData = (formData: Item) => {
+    setCards([...cards, formData]);
   };
 
-  setFormData = (formData: Item) => {
-    this.setState({ cards: [...this.state.cards, formData] });
-  };
+  return (
+    <div className={styles.container}>
+      <section className={styles['form-content']}>
+        <h1 className={styles.title}>Order book</h1>
+        <Form setFormData={setFormData} />
+        <div className={styles['form-list']}>
+          {cards.length > 0
+            ? cards.map((card: Item) => {
+                return <FormCard data={card} key={card.publishDate} />;
+              })
+            : ''}
+        </div>
+      </section>
+    </div>
+  );
+};
 
-  render() {
-    return (
-      <div className={styles.container}>
-        <section className={styles['form-content']}>
-          <h1 className={styles.title}>Order book</h1>
-          <Form setFormData={this.setFormData} />
-          <div className={styles['form-list']}>
-            {this.state.cards.length > 0
-              ? this.state.cards.map((card: Item) => {
-                  return <FormCard data={card} key={card.publishDate} />;
-                })
-              : ''}
-          </div>
-        </section>
-      </div>
-    );
-  }
-}
+export default FormPage;
