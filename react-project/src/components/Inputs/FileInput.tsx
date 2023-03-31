@@ -1,29 +1,26 @@
 import React from 'react';
+import { UseFormRegister, FieldErrors } from 'react-hook-form';
+import { Item } from 'types/form';
 
 import styles from '../../assets/styles/Form.module.scss';
 
-export default class FileInput extends React.Component<{
-  message: string;
-  link: React.RefObject<HTMLInputElement>;
-}> {
-  render() {
-    return (
-      <label>
-        Upload book cover:
-        <input
-          ref={this.props.link}
-          type="file"
-          name="img"
-          accept="image/*"
-          className={this.props.message ? styles.error : ''}
-        />
-        {this.props.message && <p className={styles.message}>{this.props.message}</p>}
-        {this.props.link.current?.files ? (
-          <p className={styles.message}>{this.props.link.current?.files[0]?.name}</p>
-        ) : (
-          ''
-        )}
-      </label>
-    );
-  }
-}
+const FileInput = (props: { inputError: FieldErrors<Item>; register: UseFormRegister<Item> }) => {
+  return (
+    <label>
+      Upload book cover:
+      <input
+        type="file"
+        accept="image/*"
+        {...props.register('img', {
+          required: true,
+        })}
+        className={props.inputError.img ? styles.error : ''}
+      />
+      {props.inputError.img && (
+        <p className={styles.message}>Field is required. Please, select file.</p>
+      )}
+    </label>
+  );
+};
+
+export default FileInput;

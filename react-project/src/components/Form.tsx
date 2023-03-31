@@ -1,6 +1,6 @@
-import React, { createRef } from 'react';
+import React, { useState } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
 
-import validateInput from '../helpers/validateInput';
 import { Item } from 'types/form';
 
 import styles from '../assets/styles/Form.module.scss';
@@ -12,105 +12,43 @@ import DateInput from '../components/Inputs/DateInput';
 import TextInput from '../components/Inputs/TextInput';
 import FileInput from '../components/Inputs/FileInput';
 
-export default class Form extends React.Component<{ setFormData: (formData: Item) => void }> {
-  authorRef = createRef<HTMLInputElement>();
-  publishRef = createRef<HTMLInputElement>();
-  langRef = createRef<HTMLSelectElement>();
-  subscribeAuthorRef = createRef<HTMLInputElement>();
-  subscribeGenreRef = createRef<HTMLInputElement>();
-  coverSoftRef = createRef<HTMLInputElement>();
-  coverHardRef = createRef<HTMLInputElement>();
-  imgFileRef = createRef<HTMLInputElement>();
-  formRef = createRef<HTMLFormElement>();
+const Form = (props: { setFormData: (formData: Item) => void }) => {
+  const { setFormData } = props;
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<Item>({ mode: 'onSubmit', reValidateMode: 'onSubmit' });
+  const [isSaved, setIsSaved] = useState(false);
 
-  state = {
-    data: {
-      author: '',
-      publishDate: '',
-      language: '',
-      subscribe: '',
-      cover: '',
-      img: '',
-    },
-    errors: {
-      author: '',
-      publishDate: '',
-      language: '',
-      subscribe: '',
-      cover: '',
-      img: '',
-    },
-    isSaved: false,
+  const onSubmitForm: SubmitHandler<Item> = (data: Item) => {
+    const localImageUrl = URL.createObjectURL(data.img[0] as Blob);
+    data.img = localImageUrl;
+    setFormData(data);
+    setIsSaved(true);
+    setTimeout(() => {
+      setIsSaved(false);
+    }, 1000);
+    reset();
   };
 
-  onSubmitForm = (event: React.FormEvent) => {
-    event.preventDefault();
-    let localImageUrl = '';
-    if (this.imgFileRef.current?.files && this.imgFileRef.current.files?.length !== 0) {
-      const imageFile = this.imgFileRef.current?.files[0];
-      localImageUrl = URL.createObjectURL(imageFile);
-    }
-    const data = {
-      author: this.authorRef.current?.value as string,
-      publishDate: this.publishRef.current?.value as string,
-      language: this.langRef.current?.value as string,
-      subscribe: `${this.subscribeAuthorRef.current?.checked ? 'author' : ''}${
-        this.subscribeGenreRef.current?.checked ? 'genre' : ''
-      }`,
-      cover: `${this.coverSoftRef.current?.checked ? 'softcover' : ''}${
-        this.coverHardRef.current?.checked ? 'hardcover' : ''
-      }`,
-      img: localImageUrl,
-    };
-    const errors = { ...this.state.errors };
-    let hasErrors = false;
-    for (const [key, value] of Object.entries(data)) {
-      const name = key as keyof typeof errors;
-      errors[name] = validateInput(name, value);
-      if (errors[name]) hasErrors = true;
-    }
+  return (
+    <form className={styles.form} onSubmit={handleSubmit(onSubmitForm)} data-testid="form">
+      <TextInput inputError={errors} register={register} />
+      <DateInput inputError={errors} register={register} />
+      <SelectInput inputError={errors} register={register} />
+      <CheckboxInput inputError={errors} register={register} />
+      <RadioInput inputError={errors} register={register} />
+      <FileInput inputError={errors} register={register} />
+      <button type="submit">Submit</button>
+      {isSaved && (
+        <span data-testid="saved-message" className={styles.save}>
+          Data has been save
+        </span>
+      )}
+    </form>
+  );
+};
 
-    this.setState({
-      data,
-      errors,
-    });
-    if (!hasErrors) {
-      this.props.setFormData(data);
-      this.setState(() => ({ isSaved: true }));
-      setTimeout(() => {
-        this.setState(() => ({ isSaved: false }));
-      }, 1000);
-      this.formRef.current?.reset();
-    }
-  };
-
-  render() {
-    return (
-      <form
-        className={styles.form}
-        onSubmit={this.onSubmitForm}
-        ref={this.formRef}
-        data-testid="form"
-      >
-        <TextInput message={this.state.errors.author} link={this.authorRef} />
-        <DateInput message={this.state.errors.publishDate} link={this.publishRef} />
-        <SelectInput message={this.state.errors.language} link={this.langRef} />
-        <CheckboxInput
-          message={this.state.errors.subscribe}
-          link={[this.subscribeAuthorRef, this.subscribeGenreRef]}
-        />
-        <RadioInput
-          message={this.state.errors.cover}
-          link={[this.coverSoftRef, this.coverHardRef]}
-        />
-        <FileInput message={this.state.errors.img} link={this.imgFileRef} />
-        <button type="submit">Submit</button>
-        {this.state.isSaved && (
-          <span data-testid="saved-message" className={styles.save}>
-            Data has been save
-          </span>
-        )}
-      </form>
-    );
-  }
-}
+export default Form;

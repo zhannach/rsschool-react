@@ -1,24 +1,30 @@
 import React from 'react';
+import { UseFormRegister, FieldErrors } from 'react-hook-form';
+import { Item } from 'types/form';
 
 import styles from '../../assets/styles/Form.module.scss';
 
-export default class TextInput extends React.Component<{
-  message: string;
-  link: React.RefObject<HTMLInputElement>;
-}> {
-  render() {
-    return (
-      <label>
-        Author:
-        <input
-          ref={this.props.link}
-          type="text"
-          name="author"
-          placeholder="Surname"
-          className={this.props.message ? styles.error : ''}
-        ></input>
-        {this.props.message && <p className={styles.message}>{this.props.message}.</p>}
-      </label>
-    );
-  }
-}
+const TextInput = (props: { inputError: FieldErrors<Item>; register: UseFormRegister<Item> }) => {
+  const { inputError, register } = props;
+  return (
+    <label>
+      Author:
+      <input
+        type="text"
+        placeholder="Surname"
+        {...register('author', {
+          pattern: /^[a-zA-Z]+$/,
+          minLength: 3,
+          maxLength: 15,
+          required: true,
+        })}
+        className={inputError.author ? styles.error : ''}
+      ></input>
+      {inputError.author && (
+        <p className={styles.message}>Field is required. Please, enter at least 3 character.</p>
+      )}
+    </label>
+  );
+};
+
+export default TextInput;

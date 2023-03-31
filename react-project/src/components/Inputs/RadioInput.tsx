@@ -1,35 +1,38 @@
 import React from 'react';
+import { UseFormRegister, FieldErrors } from 'react-hook-form';
+import { Item } from 'types/form';
 
 import styles from '../../assets/styles/Form.module.scss';
 
-export default class RadioInput extends React.Component<{
-  message: string;
-  link: React.RefObject<HTMLInputElement>[];
-}> {
-  render() {
-    return (
-      <label className={styles.cover}>
-        Book cover:
-        <label>
-          <input
-            type="radio"
-            name="cover"
-            ref={this.props.link[0]}
-            className={this.props.message ? styles.error : ''}
-          ></input>
-          Softcover
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="cover"
-            ref={this.props.link[1]}
-            className={this.props.message ? styles.error : ''}
-          ></input>
-          Hardcover
-          {this.props.message && <p className={styles.message}>{this.props.message}</p>}
-        </label>
+const RadioInput = (props: { inputError: FieldErrors<Item>; register: UseFormRegister<Item> }) => {
+  return (
+    <label className={styles.cover}>
+      Book cover:
+      <label>
+        <input
+          type="radio"
+          value="softcover"
+          {...props.register('cover', {
+            required: true,
+          })}
+          className={props.inputError.cover ? styles.error : ''}
+        ></input>
+        Softcover
       </label>
-    );
-  }
-}
+      <label>
+        <input
+          type="radio"
+          value="hardcover"
+          {...props.register('cover', {
+            required: true,
+          })}
+          className={props.inputError.cover ? styles.error : ''}
+        ></input>
+        Hardcover
+        {props.inputError.cover && <p className={styles.message}>Field is required.</p>}
+      </label>
+    </label>
+  );
+};
+
+export default RadioInput;
