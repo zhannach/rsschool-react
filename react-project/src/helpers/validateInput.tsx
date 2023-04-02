@@ -12,8 +12,7 @@ export const validateDate = (value: string) => {
     year > date.getFullYear() ||
     month === 0 ||
     month > 12 ||
-    month > date.getMonth() + 1 ||
-    day > date.getDate()
+    (day > date.getDate() && month >= date.getMonth() + 1 && year >= date.getFullYear())
   )
     return false;
 };
