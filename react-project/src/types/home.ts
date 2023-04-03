@@ -1,9 +1,24 @@
 export type Book = {
-  author: string;
+  authors: string[];
+  categories: string[];
   country: string;
-  imageLink: string;
+  imageLinks: {
+    smallThumbnail: string;
+    thumbnail: string;
+  };
   language: string;
-  pages: number;
+  pageCount: number;
   title: string;
-  year: number;
+  publishedDate: number;
+};
+
+export type BookResponse = {
+  items: BookData[];
+  kind: string;
+  totalItems: number;
+};
+
+export type BookData = {
+  id: string;
+  volumeInfo: Book;
 };

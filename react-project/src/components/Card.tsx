@@ -4,11 +4,15 @@ import { Book } from 'types/home';
 
 import style from '../assets/styles/Home.module.scss';
 
-const Card = (props: { card: Book }) => {
-  const { card } = props;
+const Card = (props: { volumeInfo: Book }) => {
+  const { volumeInfo: card } = props;
   return (
     <div className={style.card}>
-      <img src={`${card.imageLink}`} className={style.img} alt={card.title}></img>
+      <img
+        src={`${card.imageLinks.thumbnail}&fife=w400-h600`}
+        className={style.img}
+        alt={card.title}
+      ></img>
       <div className={style['info-section']}>
         <h3 className={style.info}>
           <p className={style['info-text']}>Title: </p>
@@ -16,11 +20,11 @@ const Card = (props: { card: Book }) => {
         </h3>
         <span className={style.info}>
           <p className={style['info-text']}>Author: </p>
-          {card.author}
+          {card.authors}
         </span>
         <span className={style.info}>
-          <p className={style['info-text']}>Country: </p>
-          {card.country}
+          <p className={style['info-text']}> Categories: </p>
+          {card.categories}
         </span>
         <span className={style.info}>
           <p className={style['info-text']}>Language: </p>
@@ -28,11 +32,11 @@ const Card = (props: { card: Book }) => {
         </span>
         <span className={style.info}>
           <span className={style['info-text']}>Year: </span>
-          {card.year}
+          {card.publishedDate}
         </span>
         <span className={style.info}>
           <span className={style['info-text']}>Pages: </span>
-          {card.pages}
+          {card.pageCount}
         </span>
         <div className={style.btns}>
           <button className={style['btn-buy']}>Buy</button>
