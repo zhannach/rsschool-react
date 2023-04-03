@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import styles from '../assets/styles/Home.module.scss';
 
-const Search = () => {
+const Search = (props: { setValue: (value: string) => void }) => {
   const [searchValue, setSearchValue] = useState(() => {
     const initialValue = localStorage.getItem('searchValue') as string;
     return initialValue || '';
@@ -20,10 +20,20 @@ const Search = () => {
     setSearchValue(e.target.value);
   };
 
+  const handleClickSearch = () => {
+    props.setValue(searchValue);
+  };
+
   return (
     <>
       <section className={styles.search}>
-        <input type="search" value={searchValue} className={styles.input} onChange={handleChange} />
+        <input
+          type="search"
+          value={searchValue}
+          className={styles.input}
+          onChange={handleChange}
+          placeholder="Find the book"
+        />
         <svg
           aria-hidden="true"
           className={styles.svg}
@@ -39,7 +49,7 @@ const Search = () => {
             d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
           ></path>
         </svg>
-        <button type="button" className={styles.btn}>
+        <button onClick={handleClickSearch} type="button" className={styles.btn}>
           Search
         </button>
       </section>
