@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import Search from '../components/Search';
-import Card from '../components/Card';
+import CardList from '../components/CardList';
 import { fetchCards } from '../helpers/fetchCard';
 import { BookData } from 'types/home';
 
@@ -10,16 +10,24 @@ import Loader from '../components/Loader';
 
 const Home = () => {
   const [cards, setCards] = useState<BookData[]>([]);
-  const [searchValue, setSearchValue] = useState('search');
+  const [searchValue, setSearchValue] = useState(() => {
+    const initialValue = localStorage.getItem('searchValue') as string;
+    return initialValue || '';
+  });
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
-    const getData = async () => {
-      const booksData = (await fetchCards(searchValue)) as BookData[];
-      setCards(booksData);
-      setIsLoading(false);
-    };
-    getData();
+    try {
+      const getData = async () => {
+        const booksData = (await fetchCards(searchValue)) as BookData[];
+        setCards(booksData);
+        setIsLoading(false);
+      };
+      getData();
+    } catch {
+      setError(true);
+    }
   }, [searchValue]);
 
   const setValue = (value: string) => {
@@ -30,10 +38,9 @@ const Home = () => {
     <div className={styles.container}>
       <Search setValue={setValue} />
       <section className={styles.cards}>
-        {isLoading ? <Loader /> : ''}
-        {cards ? (
-          cards.map((card) => <Card key={card.id} volumeInfo={card.volumeInfo} />)
-        ) : (
+        {isLoading ? <Loader /> : null}
+        <CardList cards={cards} />
+        {error && (
           <h2 className={styles.error}>
             Oops, it looks like there is no such book. Try another search.
           </h2>

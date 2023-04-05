@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import styles from '../assets/styles/Home.module.scss';
 
@@ -10,18 +10,13 @@ const Search = (props: { setValue: (value: string) => void }) => {
   const searchRef = useRef('');
   searchRef.current = searchValue;
 
-  useEffect(() => {
-    return () => {
-      localStorage.setItem('searchValue', searchRef.current);
-    };
-  }, []);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
 
   const handleClickSearch = () => {
     props.setValue(searchValue);
+    localStorage.setItem('searchValue', searchRef.current);
   };
 
   return (
