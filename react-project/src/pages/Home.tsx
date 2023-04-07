@@ -18,17 +18,18 @@ const Home = () => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    try {
-      const getData = async () => {
-        const booksData = (await fetchCards(searchValue)) as BookData[];
-        setCards(booksData);
-        setIsLoading(false);
-      };
-      getData();
-    } catch {
-      setError(true);
-    }
-  }, [searchValue]);
+    const getData = async () => {
+      let booksData: BookData[] = [];
+      try {
+        booksData = await fetchCards(searchValue);
+      } catch {
+        setError(true);
+      }
+      setCards(booksData);
+      setIsLoading(false);
+    };
+    getData();
+  }, [searchValue, error]);
 
   const setValue = (value: string) => {
     setSearchValue(value);
@@ -40,7 +41,7 @@ const Home = () => {
       <section className={styles.cards}>
         {isLoading ? <Loader /> : null}
         <CardList cards={cards} />
-        {error && (
+        {error && cards.length === 0 && (
           <h2 className={styles.error}>
             Oops, it looks like there is no such book. Try another search.
           </h2>
