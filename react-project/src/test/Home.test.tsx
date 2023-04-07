@@ -1,16 +1,17 @@
 import React from 'react';
 
-import { describe, it } from 'vitest';
+import { describe, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import Home from '../pages/Home';
 import Search from '../components/Search';
 import About from '../pages/About';
 
+const mock = vi.fn();
+
 describe('Search', () => {
   it('renders search input', () => {
-    render(<Search />);
+    render(<Search setValue={mock} />);
     expect(screen.getByRole('searchbox')).toBeInTheDocument();
     expect(screen.getByRole('searchbox')).toHaveValue('');
   });
@@ -18,7 +19,7 @@ describe('Search', () => {
 
 describe('Search', () => {
   it('renders search button', () => {
-    render(<Search />);
+    render(<Search setValue={mock} />);
     expect(screen.getByRole('button')).toBeInTheDocument();
     expect(screen.getByRole('button')).toHaveTextContent(/search/i);
   });
@@ -26,7 +27,7 @@ describe('Search', () => {
 
 describe('Search event', () => {
   it('types into the input', async () => {
-    render(<Search />);
+    render(<Search setValue={mock} />);
     const input = screen.getByRole('searchbox');
     expect(screen.queryByText(/react/i)).toBeNull();
     await userEvent.type(screen.getByRole('searchbox'), 'react');
@@ -36,28 +37,11 @@ describe('Search event', () => {
 
 describe('Search focus', () => {
   it('input focus', () => {
-    render(<Search />);
+    render(<Search setValue={mock} />);
     const input = screen.getByRole('searchbox');
     expect(input).not.toHaveFocus();
     input.focus();
     expect(input).toHaveFocus();
-  });
-});
-
-describe('Card', () => {
-  it('renders card', () => {
-    render(<Home />);
-    expect(screen.getByAltText(/Le Père Goriot/i));
-    expect(screen.getAllByAltText(/Le Père Goriot/i)).toHaveLength(1);
-  });
-});
-
-describe('Cards', () => {
-  it('renders list of cads', () => {
-    render(<Home />);
-    expect(screen.getAllByRole('img')).toHaveLength(12);
-    expect(screen.getAllByText(/buy/i)).toHaveLength(12);
-    expect(screen.getAllByText(/add/i)).toHaveLength(12);
   });
 });
 

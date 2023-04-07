@@ -10,7 +10,11 @@ const Modal = (props: { card?: Book; onCloseModal: () => void }) => {
       <div className="modal-dialog">
         {card && (
           <div className={style['modal-content']} onClick={(e) => e.stopPropagation()}>
-            <span className={style.close} onClick={() => props.onCloseModal()}>
+            <span
+              data-testid="close-modal"
+              className={style.close}
+              onClick={() => props.onCloseModal()}
+            >
               &times;
             </span>
             <div className={style['modal-card']}>
