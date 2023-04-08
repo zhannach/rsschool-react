@@ -1,0 +1,199 @@
+@import './normalize.css';
+@import './_variables.scss';
+
+.form {
+  margin: 50px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  row-gap: 25px;
+  position: relative;
+
+  & .message {
+    text-align: center;
+    font-size: 1.3rem;
+    font-style: italic;
+    margin-top: 10px;
+  }
+
+  & .save {
+    top: 45%;
+    padding: 10px;
+    width: 110%;
+    border-radius: 10px;
+    position: absolute;
+    text-align: center;
+    font-size: 2rem;
+    color: #fff;
+    background-color: $btn-color-light;
+  }
+
+  & label {
+    font-size: 1.7rem;
+  }
+
+  & .text {
+    font-size: 1.5rem;
+  }
+
+  & input[type='text'] {
+    width: 210px;
+    height: 35px;
+    text-align: start;
+    border: 1.5px solid $header-color;
+    margin-left: 15px;
+    padding: 8px;
+    font-size: 1.5rem;
+    border-radius: 5px;
+    &:focus {
+      border: 1.5px solid $focus-color;
+      box-shadow: 0px 0px 2px 2px $focus-color;
+    }
+    &.error {
+      border: 1.5px solid $error-color;
+      box-shadow: 0px 0px 3px 3px $error-color;
+      border-radius: 10px;
+    }
+  }
+
+  & input[type='date'] {
+    width: 210px;
+    height: 35px;
+    border: 1.5px solid $header-color;
+    margin-left: 15px;
+    padding: 8px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    &:focus {
+      border: 1.5px solid $focus-color;
+      box-shadow: 0px 0px 2px 2px $focus-color;
+    }
+    &.error {
+      border: 1.5px solid $error-color;
+      box-shadow: 0px 0px 3px 3px $error-color;
+      border-radius: 10px;
+    }
+  }
+
+  & select {
+    width: 200px;
+    height: 38px;
+    border: 1.5px solid $header-color;
+    margin-left: 15px;
+    padding: 7px;
+    font-size: 1.4rem;
+    border-radius: 5px;
+    background-color: #fff;
+    &:focus {
+      border: 1.5px solid $focus-color;
+      box-shadow: 0px 0px 2px 2px $focus-color;
+    }
+    &.error {
+      border: 1.5px solid $error-color;
+      box-shadow: 0px 0px 3px 3px $error-color;
+      border-radius: 10px;
+    }
+  }
+
+  & input[type='checkbox'] {
+    display: inline-block;
+    place-content: center;
+    width: 25px;
+    height: 25px;
+    margin: 10px 10px 0 15px;
+    padding: 8px;
+    accent-color: $btn-color;
+    &.error {
+      border: 1.5px solid $error-color;
+      box-shadow: 0px 0px 3px 3px $error-color;
+      border-radius: 10px;
+    }
+  }
+
+  & input[type='radio'] {
+    appearance: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1.5px solid $header-color;
+    margin: 0 5px 0 15px;
+    padding: 8px;
+    place-content: center;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      transform: scale(0);
+      transition: 120ms transform ease-in-out;
+      box-shadow: inset 1em 1em var(--form-control-color);
+    }
+
+    &:checked::before {
+      transform: scale(1);
+      background-color: $btn-color;
+      display: flex;
+    }
+    &:focus {
+      border: 1.5px solid $focus-color;
+      box-shadow: 0px 0px 2px 2px $focus-color;
+    }
+    &.error {
+      border: 1.5px solid $error-color;
+      box-shadow: 0px 0px 3px 3px $error-color;
+      border-radius: 50%;
+    }
+  }
+
+  & input[type='file'] {
+    margin-left: 15px;
+    width: 180px;
+
+    border-width: 0 0 100px 200px;
+
+    &::-webkit-file-upload-button {
+      visibility: hidden;
+    }
+
+    &::before {
+      content: 'Select image';
+      display: inline-block;
+      background: linear-gradient(top, #f9f9f9, #e3e3e3);
+      border: 1.5px solid $header-color;
+      width: 180px;
+      height: 35px;
+      border-radius: 3px;
+      padding: 5px 8px;
+      outline: none;
+      white-space: nowrap;
+      cursor: pointer;
+      text-shadow: 1px 1px #fff;
+      font-size: 1.5rem;
+    }
+    &:active::before {
+      background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+    }
+    &:focus {
+      border: 1.5px solid $focus-color;
+      box-shadow: 0px 0px 2px 2px $focus-color;
+    }
+    &.error {
+      border: 1.5px solid $error-color;
+      box-shadow: 0px 0px 3px 3px $error-color;
+      border-radius: 10px;
+    }
+  }
+
+  & button {
+    @include btn;
+    background-color: $btn-color;
+    width: 120px;
+    align-self: center;
+  }
+}
