@@ -6,10 +6,14 @@ export const fetchCards = async (value: string) => {
       `https://www.googleapis.com/books/v1/volumes?q=${value || 'react'}&maxResults=30`
     );
     const books = (await response.json()) as BookResponse;
+    if (!books.items || !books.items.length) {
+      return [];
+    }
     const filterData = books.items.filter((el) => el.volumeInfo.imageLinks);
     return filterData;
   } catch (error) {
-    throw Error('something went wrong');
+    console.error(error);
+    throw Error('Something went wrong');
   }
 };
 
