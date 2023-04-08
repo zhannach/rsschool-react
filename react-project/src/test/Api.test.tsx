@@ -3,18 +3,24 @@ import React from 'react';
 import { describe, it } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { setupServer } from 'msw/node';
 
 import Home from '../pages/Home';
 import { act } from 'react-dom/test-utils';
+import { errorHandler, handlers } from './mock/handlers.mock';
+
+const server = setupServer(...handlers);
+beforeAll(() => server.listen());
+afterAll(() => server.close());
+afterEach(() => server.resetHandlers());
 
 describe('Cards', () => {
   it('fetches list of cards', async () => {
     render(<Home />);
     const loader = screen.getByTestId('loader');
     expect(loader).toBeInTheDocument();
-    await userEvent.click(screen.getByRole('button'));
     const cards = await screen.findAllByRole('img');
-    expect(cards).toHaveLength(30);
+    expect(cards).toHaveLength(2);
     await waitFor(() => {
       expect(loader).not.toBeInTheDocument();
     });
@@ -24,9 +30,6 @@ describe('Cards', () => {
 describe('Card', () => {
   it('fetch Card', async () => {
     render(<Home />);
-    act(() => {
-      userEvent.click(screen.getByRole('button'));
-    });
     const card = await screen.findByText(/Introduction to React/i);
     expect(card).toBeInTheDocument();
     expect(card.firstChild).not.toBeNull();
@@ -36,9 +39,6 @@ describe('Card', () => {
 describe('ModalCard', () => {
   it('open modal', async () => {
     render(<Home />);
-    act(() => {
-      userEvent.click(screen.getByRole('button'));
-    });
     const card = await screen.findByText(/Introduction to React/i);
     act(() => {
       userEvent.click(card);
@@ -69,12 +69,12 @@ describe('ModalCard', () => {
   });
 });
 
-describe('Error Message', () => {
+describe('Search Card', () => {
   it('fetches search card', async () => {
     render(<Home />);
-    await userEvent.type(screen.getByRole('searchbox'), 'javascript');
+    await userEvent.type(screen.getByRole('searchbox'), 'JavaScript');
     await userEvent.click(screen.getByRole('button'));
-    const card = await screen.findByText(/JavaScript с нуля/i);
+    const card = await screen.findByText(/Coding with JavaScript For Dummies/i);
     expect(card).toBeInTheDocument();
   });
 });
@@ -82,9 +82,8 @@ describe('Error Message', () => {
 describe('Error Message', () => {
   it('fetches with error', async () => {
     render(<Home />);
-    await userEvent.type(screen.getByRole('searchbox'), 'acvfghj');
-    await userEvent.click(screen.getByRole('button'));
-    const error = await screen.findByText(/Oops, it looks like there is no such book/i);
+    server.use(...errorHandler);
+    const error = await screen.findByText(/Oops, it looks like there is no such book./i);
     expect(error).toBeInTheDocument();
   });
 });
