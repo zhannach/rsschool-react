@@ -7,7 +7,7 @@ const FormCard = (props: { data: Item }) => {
   const { data } = props;
   return (
     <div className={styles.card}>
-      <img src={data.img} className={styles.img} alt=""></img>
+      <img src={data.img as string} className={styles.img} alt=""></img>
       <div className={styles['info-section']}>
         <span className={styles.info}>
           <p className={styles['info-text']}>Author: </p>

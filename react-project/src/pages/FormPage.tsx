@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import type { RootState } from '../redux/store';
 
 import Form from '../components/Form';
 import { Item } from 'types/form';
@@ -7,17 +9,13 @@ import styles from '../assets/styles/FormPage.module.scss';
 import FormCard from '../components/FormCard';
 
 const FormPage = () => {
-  const [cards, setCards] = useState<Item[]>([]);
-
-  const setFormData = (formData: Item) => {
-    setCards([...cards, formData]);
-  };
+  const cards = useSelector((state: RootState) => state.form.formCards);
 
   return (
     <div className={styles.container}>
       <section className={styles['form-content']}>
         <h1 className={styles.title}>Order book</h1>
-        <Form setFormData={setFormData} />
+        <Form />
         <div className={styles['form-list']}>
           {cards.length > 0
             ? cards.map((card: Item) => {

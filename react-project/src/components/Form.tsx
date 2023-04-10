@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { addFormCard } from '../redux/slices/formCardsSlice';
 
 import { Item } from 'types/form';
 
@@ -12,8 +14,8 @@ import DateInput from '../components/Inputs/DateInput';
 import TextInput from '../components/Inputs/TextInput';
 import FileInput from '../components/Inputs/FileInput';
 
-const Form = (props: { setFormData: (formData: Item) => void }) => {
-  const { setFormData } = props;
+const Form = () => {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -25,7 +27,7 @@ const Form = (props: { setFormData: (formData: Item) => void }) => {
   const onSubmitForm: SubmitHandler<Item> = (data: Item) => {
     const localImageUrl = URL.createObjectURL(data.img[0] as Blob);
     data.img = localImageUrl;
-    setFormData(data);
+    dispatch(addFormCard(data));
     setIsSaved(true);
     setTimeout(() => {
       setIsSaved(false);
