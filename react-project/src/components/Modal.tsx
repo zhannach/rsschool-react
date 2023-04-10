@@ -1,10 +1,10 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import type { RootState } from '../redux/store';
 import style from '../assets/styles/Home.module.scss';
 
-import { Book } from 'types/home';
-
-const Modal = (props: { card?: Book; onCloseModal: () => void }) => {
-  const { card } = props;
+const Modal = (props: { onCloseModal: () => void }) => {
+  const card = useSelector((state: RootState) => state.cards.card.volumeInfo);
   return (
     <div className={style.modal} onClick={() => props.onCloseModal()}>
       <div className="modal-dialog">

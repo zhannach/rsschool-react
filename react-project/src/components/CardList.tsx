@@ -1,21 +1,26 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Card from '../components/Card';
 import Modal from '../components/Modal';
 import Loader from './Loader';
 
 import { fetchCard } from '../helpers/fetchCard';
-import { BookData } from 'types/home';
+import { BookData } from '../types/home';
+import type { RootState } from '../redux/store';
+import { setCard } from '../redux/slices/cardsSlice';
 
-const CardList = (props: { cards: BookData[] }) => {
+const CardList = () => {
+  const cards = useSelector((state: RootState) => state.cards.cards);
   const [isModalOpen, setModalOpen] = useState(false);
-  const [card, setCard] = useState<BookData>();
+  const card = useSelector((state: RootState) => state.cards.card);
   const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const handleClick = async (id: string) => {
     setIsLoading(true);
     const bookData = (await fetchCard(id)) as BookData;
-    setCard(bookData);
+    dispatch(setCard(bookData));
     setIsLoading(false);
     setModalOpen(true);
   };
@@ -23,14 +28,13 @@ const CardList = (props: { cards: BookData[] }) => {
     <>
       {isModalOpen && card && (
         <Modal
-          card={card.volumeInfo}
           onCloseModal={() => {
             setModalOpen(!isModalOpen);
           }}
         />
       )}
       {isLoading ? <Loader /> : null}
-      {props.cards.map((card) => (
+      {cards.map((card) => (
         <Card key={card.id} card={card} handleOpenModal={handleClick} />
       ))}
     </>
