@@ -1,22 +1,22 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import type { RootState } from '../redux/store';
 
 import styles from '../assets/styles/Home.module.scss';
+import { setSearch } from '../redux/slices/searchSlice';
 
-const Search = (props: { setValue: (value: string) => void }) => {
-  const [searchValue, setSearchValue] = useState(() => {
-    const initialValue = localStorage.getItem('searchValue') as string;
-    return initialValue || '';
-  });
+const Search = () => {
+  const searchValue = useSelector((state: RootState) => state.search.value);
+  const dispatch = useDispatch();
   const searchRef = useRef('');
   searchRef.current = searchValue;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(e.target.value);
+    dispatch(setSearch(e.target.value));
   };
 
   const handleClickSearch = () => {
-    props.setValue(searchValue);
-    localStorage.setItem('searchValue', searchRef.current);
+    dispatch(setSearch(searchRef.current));
   };
 
   return (

@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import type { RootState } from '../redux/store';
 
 import Search from '../components/Search';
 import CardList from '../components/CardList';
@@ -7,13 +9,12 @@ import { BookData } from 'types/home';
 
 import styles from '../assets/styles/Home.module.scss';
 import Loader from '../components/Loader';
+import { setCards } from '../redux/slices/cardsSlice';
 
 const Home = () => {
-  const [cards, setCards] = useState<BookData[]>([]);
-  const [searchValue, setSearchValue] = useState(() => {
-    const initialValue = localStorage.getItem('searchValue') as string;
-    return initialValue || '';
-  });
+  const cards = useSelector((state: RootState) => state.cards.cards);
+  const dispatch = useDispatch();
+  const searchValue = useSelector((state: RootState) => state.search.value);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -28,22 +29,18 @@ const Home = () => {
       } catch (e) {
         setError((e as Error).message);
       }
-      setCards(booksData);
+      dispatch(setCards(booksData));
       setIsLoading(false);
     };
     getData();
   }, [searchValue, error]);
 
-  const setValue = (value: string) => {
-    setSearchValue(value);
-  };
-
   return (
     <div className={styles.container}>
-      <Search setValue={setValue} />
+      <Search />
       <section className={styles.cards}>
         {isLoading ? <Loader /> : null}
-        <CardList cards={cards} />
+        <CardList />
         {error && cards.length === 0 && <h2 className={styles.error}>{error}</h2>}
       </section>
     </div>
