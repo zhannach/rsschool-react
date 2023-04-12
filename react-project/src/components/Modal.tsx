@@ -1,10 +1,19 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+
 import type { RootState } from '../redux/store';
+import { useGetCardQuery } from '../redux/booksApi';
+import Loader from './Loader';
+
 import style from '../assets/styles/Home.module.scss';
 
 const Modal = (props: { onCloseModal: () => void }) => {
-  const card = useSelector((state: RootState) => state.cards.card.volumeInfo);
+  const id = useSelector((state: RootState) => state.card.cardId);
+  const { data: card, isLoading, isFetching } = useGetCardQuery(id);
+
+  if (isLoading || isFetching) {
+    return <Loader />;
+  }
   return (
     <div className={style.modal} onClick={() => props.onCloseModal()}>
       <div className="modal-dialog">

@@ -1,42 +1,27 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { useGetCardsQuery } from '../redux/booksApi';
+import styles from '../assets/styles/Home.module.scss';
 
 import Card from '../components/Card';
-import Modal from '../components/Modal';
 import Loader from './Loader';
 
-import { fetchCard } from '../helpers/fetchCard';
 import { BookData } from '../types/home';
 import type { RootState } from '../redux/store';
-import { setCard } from '../redux/slices/cardsSlice';
 
 const CardList = () => {
-  const cards = useSelector((state: RootState) => state.cards.cards);
-  const [isModalOpen, setModalOpen] = useState(false);
-  const card = useSelector((state: RootState) => state.cards.card);
-  const [isLoading, setIsLoading] = useState(false);
-  const dispatch = useDispatch();
+  const searchValue = useSelector((state: RootState) => state.search.value);
+  const { data = [], isLoading, isFetching, isError } = useGetCardsQuery(searchValue);
 
-  const handleClick = async (id: string) => {
-    setIsLoading(true);
-    const bookData = (await fetchCard(id)) as BookData;
-    dispatch(setCard(bookData));
-    setIsLoading(false);
-    setModalOpen(true);
-  };
   return (
     <>
-      {isModalOpen && card && (
-        <Modal
-          onCloseModal={() => {
-            setModalOpen(!isModalOpen);
-          }}
-        />
+      {isLoading || isFetching ? <Loader /> : null}
+      {data && data.map((card: BookData) => <Card key={card.id} card={card} />)}
+      {isError && (
+        <h2 className={styles.error}>
+          Oops, it looks like there is no such book. Try another search.
+        </h2>
       )}
-      {isLoading ? <Loader /> : null}
-      {cards.map((card) => (
-        <Card key={card.id} card={card} handleOpenModal={handleClick} />
-      ))}
     </>
   );
 };
