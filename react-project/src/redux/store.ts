@@ -1,14 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit';
-import cardsSlice from './slices/cardsSlice';
+import cardSlice from './slices/cardSlice';
 import formCardsSlice from './slices/formCardsSlice';
 import searchSlice from './slices/searchSlice';
+import { booksApi } from './booksApi';
 
 export const store = configureStore({
   reducer: {
     search: searchSlice,
-    cards: cardsSlice,
+    card: cardSlice,
     form: formCardsSlice,
+    [booksApi.reducerPath]: booksApi.reducer,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(booksApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
