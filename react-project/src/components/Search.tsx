@@ -1,22 +1,22 @@
-import React, { useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import type { RootState } from '../redux/store';
+import { useDispatch } from 'react-redux';
 
 import styles from '../assets/styles/Home.module.scss';
 import { setSearch } from '../redux/slices/searchSlice';
 
 const Search = () => {
   const searchValue = useSelector((state: RootState) => state.search.value);
+  const [localValue, setLocalValue] = useState(searchValue || '');
   const dispatch = useDispatch();
-  const searchRef = useRef('');
-  searchRef.current = searchValue;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setSearch(e.target.value));
+    setLocalValue(e.target.value);
   };
 
   const handleClickSearch = () => {
-    dispatch(setSearch(searchRef.current));
+    dispatch(setSearch(localValue));
   };
 
   return (
@@ -24,7 +24,7 @@ const Search = () => {
       <section className={styles.search}>
         <input
           type="search"
-          value={searchValue}
+          value={localValue}
           className={styles.input}
           onChange={handleChange}
           placeholder="Find the book"
