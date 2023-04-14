@@ -1,17 +1,21 @@
 import React from 'react';
 
-import { describe, it, vi } from 'vitest';
+import { describe, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { store } from '../redux/store';
+import { Provider } from 'react-redux';
 
 import Search from '../components/Search';
 import About from '../pages/About';
 
-const mock = vi.fn();
-
 describe('Search', () => {
   it('renders search input', () => {
-    render(<Search setValue={mock} />);
+    render(
+      <Provider store={store}>
+        <Search />
+      </Provider>
+    );
     expect(screen.getByRole('searchbox')).toBeInTheDocument();
     expect(screen.getByRole('searchbox')).toHaveValue('');
   });
@@ -19,7 +23,11 @@ describe('Search', () => {
 
 describe('Search', () => {
   it('renders search button', () => {
-    render(<Search setValue={mock} />);
+    render(
+      <Provider store={store}>
+        <Search />
+      </Provider>
+    );
     expect(screen.getByRole('button')).toBeInTheDocument();
     expect(screen.getByRole('button')).toHaveTextContent(/search/i);
   });
@@ -27,7 +35,11 @@ describe('Search', () => {
 
 describe('Search event', () => {
   it('types into the input', async () => {
-    render(<Search setValue={mock} />);
+    render(
+      <Provider store={store}>
+        <Search />
+      </Provider>
+    );
     const input = screen.getByRole('searchbox');
     expect(screen.queryByText(/react/i)).toBeNull();
     await userEvent.type(screen.getByRole('searchbox'), 'react');
@@ -37,7 +49,11 @@ describe('Search event', () => {
 
 describe('Search focus', () => {
   it('input focus', () => {
-    render(<Search setValue={mock} />);
+    render(
+      <Provider store={store}>
+        <Search />
+      </Provider>
+    );
     const input = screen.getByRole('searchbox');
     expect(input).not.toHaveFocus();
     input.focus();
@@ -47,7 +63,11 @@ describe('Search focus', () => {
 
 describe('About', () => {
   it('renders about page', () => {
-    render(<About />);
+    render(
+      <Provider store={store}>
+        <About />
+      </Provider>
+    );
     expect(screen.getByText(/About us/i)).toBeInTheDocument();
   });
 });

@@ -1,16 +1,20 @@
 import React from 'react';
 
-import { describe, it, vitest } from 'vitest';
+import { describe, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
+import { store } from '../redux/store';
 
 import userEvent from '@testing-library/user-event';
 import Form from '../components/Form';
-
-const fakeSetFormData = vitest.fn();
+import { Provider } from 'react-redux';
 
 describe('render button', () => {
   it('submit button', () => {
-    render(<Form setFormData={fakeSetFormData} />);
+    render(
+      <Provider store={store}>
+        <Form />
+      </Provider>
+    );
     expect(screen.getByRole('button')).toBeInTheDocument();
     expect(screen.getByRole('button')).toHaveTextContent(/submit/i);
   });
@@ -18,7 +22,11 @@ describe('render button', () => {
 
 describe('render form', () => {
   it('6 types of inputs', () => {
-    render(<Form setFormData={fakeSetFormData} />);
+    render(
+      <Provider store={store}>
+        <Form />
+      </Provider>
+    );
     expect(screen.getByLabelText(/Author/)).toHaveAttribute('type', 'text');
     expect(screen.getByLabelText(/language/i)).toHaveAttribute('name', 'language');
     expect(screen.getAllByLabelText(/genre/i)[0]).toHaveAttribute('type', 'checkbox');
@@ -30,7 +38,11 @@ describe('render form', () => {
 
 describe('checkbox subscribe events', () => {
   it('checkbox subscribe click', async () => {
-    render(<Form setFormData={fakeSetFormData} />);
+    render(
+      <Provider store={store}>
+        <Form />
+      </Provider>
+    );
     const checkbox = screen.getAllByRole('checkbox');
     expect(checkbox[1]).not.toBeChecked();
     await userEvent.click(checkbox[1]);
@@ -42,7 +54,11 @@ describe('checkbox subscribe events', () => {
 
 describe('input text events', () => {
   it('type text', async () => {
-    render(<Form setFormData={fakeSetFormData} />);
+    render(
+      <Provider store={store}>
+        <Form />
+      </Provider>
+    );
     const textInput = screen.getByRole('textbox');
     expect((textInput as HTMLInputElement).value).toBe('');
     await userEvent.type(screen.getByRole('textbox'), 'Emily Brontë');
@@ -52,7 +68,11 @@ describe('input text events', () => {
 
 describe('checkbox events', () => {
   it('checkbox bookcover click', async () => {
-    render(<Form setFormData={fakeSetFormData} />);
+    render(
+      <Provider store={store}>
+        <Form />
+      </Provider>
+    );
     const textInput = screen.getAllByRole('radio');
     expect(textInput[0]).not.toBeChecked();
     await userEvent.click(textInput[0]);
@@ -63,7 +83,11 @@ describe('checkbox events', () => {
 
 describe('select events', () => {
   it('select option', async () => {
-    render(<Form setFormData={fakeSetFormData} />);
+    render(
+      <Provider store={store}>
+        <Form />
+      </Provider>
+    );
     const selectInput = screen.getByRole('combobox');
     const options = screen.getAllByRole('option');
     expect(options).toHaveLength(8);
@@ -75,7 +99,11 @@ describe('select events', () => {
 
 describe('date events', () => {
   it('select date', async () => {
-    render(<Form setFormData={fakeSetFormData} />);
+    render(
+      <Provider store={store}>
+        <Form />
+      </Provider>
+    );
     const selectInput = screen.getByLabelText(/publish date/i);
     expect(selectInput).not.toHaveFocus();
     selectInput.focus();
@@ -85,7 +113,11 @@ describe('date events', () => {
 
 describe('Form', () => {
   it('reset form', async () => {
-    render(<Form setFormData={fakeSetFormData} />);
+    render(
+      <Provider store={store}>
+        <Form />
+      </Provider>
+    );
     const submit = screen.getByRole('button');
     await userEvent.click(submit);
     expect(screen.getByRole('textbox')).toHaveValue('');
@@ -95,7 +127,11 @@ describe('Form', () => {
 
 describe('Form', () => {
   it('upload img', async () => {
-    render(<Form setFormData={fakeSetFormData} />);
+    render(
+      <Provider store={store}>
+        <Form />
+      </Provider>
+    );
     let fileInput = screen.getByLabelText(/upload/i);
     expect(fileInput).not.toHaveClass('_error_17d956');
     const str = 'http://localhost:5173/25ada3f6-a0da-4537-8051-ff958de92c3b';

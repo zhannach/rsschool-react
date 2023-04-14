@@ -2,6 +2,8 @@ import React from 'react';
 
 import { describe, it } from 'vitest';
 import { fireEvent, render, screen } from '@testing-library/react';
+import { store } from '../redux/store';
+import { Provider } from 'react-redux';
 
 import App from '../App';
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
@@ -11,7 +13,9 @@ describe('React Router', () => {
   it('render home page', () => {
     const { container } = render(
       <BrowserRouter>
-        <App />
+        <Provider store={store}>
+          <App />
+        </Provider>
       </BrowserRouter>
     );
     const navbar = screen.getByRole('navigation');
@@ -25,7 +29,9 @@ describe('React Router', () => {
   it('should navigate to page', () => {
     render(
       <BrowserRouter>
-        <Header />
+        <Provider store={store}>
+          <Header />
+        </Provider>
       </BrowserRouter>
     );
     const title = screen.getByRole('heading');
@@ -42,7 +48,9 @@ describe('React Router', () => {
     const badRoute = '/error';
     render(
       <MemoryRouter initialEntries={[badRoute]}>
-        <App />
+        <Provider store={store}>
+          <App />
+        </Provider>
       </MemoryRouter>
     );
     expect(screen.queryByText(/This page doesn't exist. Back to/)).toBeInTheDocument();

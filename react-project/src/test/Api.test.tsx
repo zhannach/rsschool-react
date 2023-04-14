@@ -7,6 +7,9 @@ import { setupServer } from 'msw/node';
 
 import Home from '../pages/Home';
 import { act } from 'react-dom/test-utils';
+import { store } from '../redux/store';
+import { Provider } from 'react-redux';
+
 import { errorHandler, handlers } from './mock/handlers.mock';
 
 const server = setupServer(...handlers);
@@ -16,7 +19,11 @@ afterEach(() => server.resetHandlers());
 
 describe('Cards', () => {
   it('fetches list of cards', async () => {
-    render(<Home />);
+    render(
+      <Provider store={store}>
+        <Home />
+      </Provider>
+    );
     const loader = screen.getByTestId('loader');
     expect(loader).toBeInTheDocument();
     const cards = await screen.findAllByRole('img');
@@ -29,7 +36,11 @@ describe('Cards', () => {
 
 describe('Card', () => {
   it('fetch Card', async () => {
-    render(<Home />);
+    render(
+      <Provider store={store}>
+        <Home />
+      </Provider>
+    );
     const card = await screen.findByText(/Introduction to React/i);
     expect(card).toBeInTheDocument();
     expect(card.firstChild).not.toBeNull();
@@ -38,7 +49,11 @@ describe('Card', () => {
 
 describe('ModalCard', () => {
   it('open modal', async () => {
-    render(<Home />);
+    render(
+      <Provider store={store}>
+        <Home />
+      </Provider>
+    );
     const card = await screen.findByText(/Introduction to React/i);
     act(() => {
       userEvent.click(card);
@@ -54,7 +69,11 @@ describe('ModalCard', () => {
 
 describe('ModalCard', () => {
   it('close modal', async () => {
-    render(<Home />);
+    render(
+      <Provider store={store}>
+        <Home />
+      </Provider>
+    );
     const card = await screen.findByText(/Introduction to React/i);
     act(() => {
       userEvent.click(card);
@@ -71,7 +90,11 @@ describe('ModalCard', () => {
 
 describe('Search Card', () => {
   it('fetches search card', async () => {
-    render(<Home />);
+    render(
+      <Provider store={store}>
+        <Home />
+      </Provider>
+    );
     await userEvent.type(screen.getByRole('searchbox'), 'JavaScript');
     await userEvent.click(screen.getByRole('button'));
     const card = await screen.findByText(/Coding with JavaScript For Dummies/i);
@@ -81,8 +104,14 @@ describe('Search Card', () => {
 
 describe('Error Message', () => {
   it('fetches with error', async () => {
-    render(<Home />);
+    render(
+      <Provider store={store}>
+        <Home />
+      </Provider>
+    );
     server.use(...errorHandler);
+    await userEvent.type(screen.getByRole('searchbox'), 'asdasfasfafasf');
+    await userEvent.click(screen.getByRole('button'));
     const error = await screen.findByText(/Oops, it looks like there is no such book./i);
     expect(error).toBeInTheDocument();
   });

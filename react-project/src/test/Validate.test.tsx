@@ -5,10 +5,16 @@ import { render, screen } from '@testing-library/react';
 
 import userEvent from '@testing-library/user-event';
 import FormPage from '../pages/FormPage';
+import { Provider } from 'react-redux';
+import { store } from '../redux/store';
 
 describe('FormPage', () => {
   it('render validate errors', async () => {
-    render(<FormPage />);
+    render(
+      <Provider store={store}>
+        <FormPage />
+      </Provider>
+    );
     const submit = screen.getByRole('button');
     await userEvent.click(submit);
     const errors = await screen.findAllByText(/field is required/i);
@@ -19,7 +25,11 @@ describe('FormPage', () => {
 
 describe('FormPage', () => {
   it('validate text, select, date inputs', async () => {
-    render(<FormPage />);
+    render(
+      <Provider store={store}>
+        <FormPage />
+      </Provider>
+    );
     const submit = screen.getByRole('button');
     const textInput = screen.getByRole('textbox');
     const selectInput = screen.getByRole('combobox');
@@ -41,7 +51,11 @@ describe('FormPage', () => {
 
 describe('FormPage', () => {
   it('validate checkbox, radio inputs', async () => {
-    render(<FormPage />);
+    render(
+      <Provider store={store}>
+        <FormPage />
+      </Provider>
+    );
     const submit = screen.getByRole('button');
     const checkbox = screen.getAllByRole('checkbox');
     const radio = screen.getAllByRole('radio');

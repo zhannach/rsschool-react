@@ -16,9 +16,6 @@ export const formCardsSlice = createSlice({
     addFormCard: (state, action: PayloadAction<Item>) => {
       state.formCards.push(action.payload);
     },
-    setFormCard: (state, action: PayloadAction<Item>) => {
-      state.formCards.push(action.payload);
-    },
   },
 });
 
