@@ -10,8 +10,9 @@ export const booksApi = createApi({
         url: `https://www.googleapis.com/books/v1/volumes?q=${value || 'react'}&maxResults=30`,
       }),
       transformResponse: (response: BookResponse) => {
-        const filterData = response.items.filter((el: BookData) => el.volumeInfo.imageLinks);
-        return filterData;
+        return response.items
+          ? response.items.filter((el: BookData) => el.volumeInfo.imageLinks)
+          : [];
       },
     }),
     getCard: builder.query({
