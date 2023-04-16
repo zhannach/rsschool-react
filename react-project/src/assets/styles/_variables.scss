@@ -1,0 +1,21 @@
+$header-color: rgb(91, 103, 127);
+$btn-color: rgb(77, 110, 176);
+$btn-color-light: rgb(179, 168, 229);
+$focus-color: rgb(72, 124, 220);
+$error-color: rgb(204, 63, 56);
+
+@mixin btn {
+  width: 70px;
+  height: 40px;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+:export {
+  header-color: $header-color;
+  btn-color: $btn-color;
+  btn-color-light: $btn-color-light;
+}
