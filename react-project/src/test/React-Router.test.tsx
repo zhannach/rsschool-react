@@ -2,12 +2,12 @@ import React from 'react';
 
 import { describe, it } from 'vitest';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { store } from '../redux/store';
+import { store } from '../client/redux/store';
 import { Provider } from 'react-redux';
 
-import App from '../App';
+import App from '../client/App';
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
-import Header from '../components/Header';
+import Header from '../client/components/Header';
 
 describe('React Router', () => {
   it('render home page', () => {

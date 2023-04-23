@@ -2,10 +2,10 @@ import React from 'react';
 
 import { describe, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { store } from '../redux/store';
+import { store } from '../client/redux/store';
 
 import userEvent from '@testing-library/user-event';
-import Form from '../components/Form';
+import Form from '../client/components/Form';
 import { Provider } from 'react-redux';
 
 describe('render button', () => {

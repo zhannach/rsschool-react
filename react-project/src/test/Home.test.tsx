@@ -3,11 +3,11 @@ import React from 'react';
 import { describe, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { store } from '../redux/store';
+import { store } from '../client/redux/store';
 import { Provider } from 'react-redux';
 
-import Search from '../components/Search';
-import About from '../pages/About';
+import Search from '../client/components/Search';
+import About from '../client/pages/About';
 
 describe('Search', () => {
   it('renders search input', () => {

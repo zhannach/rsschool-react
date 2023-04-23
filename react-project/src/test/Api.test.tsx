@@ -5,9 +5,9 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { setupServer } from 'msw/node';
 
-import Home from '../pages/Home';
+import Home from '../client/pages/Home';
 import { act } from 'react-dom/test-utils';
-import { store } from '../redux/store';
+import { store } from '../client/redux/store';
 import { Provider } from 'react-redux';
 
 import { errorHandler, handlers } from './mock/handlers.mock';

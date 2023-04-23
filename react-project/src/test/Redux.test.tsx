@@ -1,5 +1,5 @@
-import formCardsSlice, { addFormCard } from '../redux/slices/formCardsSlice';
-import searchSlice, { setSearch } from '../redux/slices/searchSlice';
+import formCardsSlice, { addFormCard } from '../client/redux/slices/formCardsSlice';
+import searchSlice, { setSearch } from '../client/redux/slices/searchSlice';
 
 const fakeItem = {
   author: 'fake author',

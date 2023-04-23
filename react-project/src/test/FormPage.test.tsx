@@ -2,12 +2,12 @@ import React from 'react';
 
 import { describe, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { store } from '../redux/store';
+import { store } from '../client/redux/store';
 import { Provider } from 'react-redux';
 
 import userEvent from '@testing-library/user-event';
-import FormPage from '../pages/FormPage';
-import FormCard from '../components/FormCard';
+import FormPage from '../client/pages/FormPage';
+import FormCard from '../client/components/FormCard';
 
 const fakeFormData = {
   author: 'Emily',
