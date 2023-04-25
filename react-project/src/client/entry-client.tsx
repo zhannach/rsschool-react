@@ -3,12 +3,18 @@ import { createRoot, hydrateRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
-import { initStore } from './redux/store';
+import { initStore, RootState } from './redux/store';
+
+declare global {
+  interface Window {
+    __PRELOADED_STATE__: Partial<RootState>;
+  }
+}
 
 const container = document.getElementById('app');
-const store = initStore((window as any).__PRELOADED_STATE__);
+const store = initStore(window.__PRELOADED_STATE__);
 
-delete (window as any).__PRELOADED_STATE__;
+delete window.__PRELOADED_STATE__;
 
 const FullApp = () => (
   <React.StrictMode>
