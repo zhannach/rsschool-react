@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import Home from './client/pages/Home';
-import About from './client/pages/About';
-import NotFound from './client/pages/NotFound';
+import Home from './pages/Home';
+import About from './pages/About';
+import NotFound from './pages/NotFound';
 import Layout from './components/Layout';
-import FormPage from './client/pages/FormPage';
+import FormPage from './pages/FormPage';
 
 function App() {
   return (

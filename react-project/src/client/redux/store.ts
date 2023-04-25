@@ -1,4 +1,4 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore, StateFromReducersMapObject } from '@reduxjs/toolkit';
 import cardSlice from './slices/cardSlice';
 import formCardsSlice from './slices/formCardsSlice';
 import searchSlice from './slices/searchSlice';
@@ -11,15 +11,18 @@ export const bookReducer = combineReducers({
   [booksApi.reducerPath]: booksApi.reducer,
 });
 
-export const store = configureStore({
-  reducer: {
-    search: searchSlice,
-    card: cardSlice,
-    form: formCardsSlice,
-    [booksApi.reducerPath]: booksApi.reducer,
-  },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(booksApi.middleware),
-});
+export const initStore = (preloadedState?: Partial<RootState>) =>
+  configureStore({
+    reducer: {
+      search: searchSlice,
+      card: cardSlice,
+      form: formCardsSlice,
+      [booksApi.reducerPath]: booksApi.reducer,
+    },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(booksApi.middleware),
+    preloadedState,
+  });
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+export type Store = ReturnType<typeof initStore>;
+export type RootState = StateFromReducersMapObject<typeof bookReducer>;
+export type AppDispatch = Store['dispatch'];

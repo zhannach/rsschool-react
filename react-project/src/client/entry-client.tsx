@@ -3,9 +3,12 @@ import { createRoot, hydrateRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
-import { store } from './redux/store';
+import { initStore } from './redux/store';
 
 const container = document.getElementById('app');
+const store = initStore((window as any).__PRELOADED_STATE__);
+
+delete (window as any).__PRELOADED_STATE__;
 
 const FullApp = () => (
   <React.StrictMode>
