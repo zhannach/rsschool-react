@@ -1,5 +1,5 @@
-import serialize from "serialize-javascript";
-import { RootState } from "../client/redux/store";
+import serialize from 'serialize-javascript';
+import { RootState } from '../client/redux/store';
 
 interface TTemplate {
   header: string;
