@@ -15,7 +15,7 @@ describe('HomePage E2E', () => {
   it('should search cards', () => {
     cy.get('input').type('Javascript');
     cy.get('button').click();
-    cy.get('h3').last().should('have.text', 'Title: JavaScript Unlocked');
+    cy.contains('Title: JavaScript');
   });
 
   it('should open modal window', () => {

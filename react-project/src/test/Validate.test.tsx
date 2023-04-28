@@ -6,12 +6,13 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import FormPage from '../client/pages/FormPage';
 import { Provider } from 'react-redux';
-import { store } from '../client/redux/store';
+import { initStore } from '../client/redux/store';
+import { preloadState } from './Api.test';
 
 describe('FormPage', () => {
   it('render validate errors', async () => {
     render(
-      <Provider store={store}>
+      <Provider store={initStore(preloadState)}>
         <FormPage />
       </Provider>
     );
@@ -26,7 +27,7 @@ describe('FormPage', () => {
 describe('FormPage', () => {
   it('validate text, select, date inputs', async () => {
     render(
-      <Provider store={store}>
+      <Provider store={initStore(preloadState)}>
         <FormPage />
       </Provider>
     );
@@ -52,7 +53,7 @@ describe('FormPage', () => {
 describe('FormPage', () => {
   it('validate checkbox, radio inputs', async () => {
     render(
-      <Provider store={store}>
+      <Provider store={initStore(preloadState)}>
         <FormPage />
       </Provider>
     );

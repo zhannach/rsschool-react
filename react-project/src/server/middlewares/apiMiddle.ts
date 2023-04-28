@@ -1,5 +1,4 @@
-import { Store, initStore } from 'client/redux/store';
-import { BookData } from 'client/types/home';
+import { Store } from 'client/redux/store';
 import { booksApi } from '../../client/redux/booksApi';
 
 const apiRequest = async (store: Store) => {

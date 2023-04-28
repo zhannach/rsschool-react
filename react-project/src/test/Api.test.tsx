@@ -7,10 +7,16 @@ import { setupServer } from 'msw/node';
 
 import Home from '../client/pages/Home';
 import { act } from 'react-dom/test-utils';
-import { store } from '../client/redux/store';
+import { initStore, RootState } from '../client/redux/store';
 import { Provider } from 'react-redux';
 
 import { errorHandler, handlers } from './mock/handlers.mock';
+import { Item } from 'client/types/form';
+export const preloadState = {
+  search: { value: '' },
+  card: { cardId: '' },
+  form: { formCards: [] as Item[] },
+} as Partial<RootState>;
 
 const server = setupServer(...handlers);
 beforeAll(() => server.listen());
@@ -20,7 +26,7 @@ afterEach(() => server.resetHandlers());
 describe('Cards', () => {
   it('fetches list of cards', async () => {
     render(
-      <Provider store={store}>
+      <Provider store={initStore(preloadState)}>
         <Home />
       </Provider>
     );
@@ -37,7 +43,7 @@ describe('Cards', () => {
 describe('Card', () => {
   it('fetch Card', async () => {
     render(
-      <Provider store={store}>
+      <Provider store={initStore(preloadState)}>
         <Home />
       </Provider>
     );
@@ -50,7 +56,7 @@ describe('Card', () => {
 describe('ModalCard', () => {
   it('open modal', async () => {
     render(
-      <Provider store={store}>
+      <Provider store={initStore(preloadState)}>
         <Home />
       </Provider>
     );
@@ -70,7 +76,7 @@ describe('ModalCard', () => {
 describe('ModalCard', () => {
   it('close modal', async () => {
     render(
-      <Provider store={store}>
+      <Provider store={initStore(preloadState)}>
         <Home />
       </Provider>
     );
@@ -91,7 +97,7 @@ describe('ModalCard', () => {
 describe('Search Card', () => {
   it('fetches search card', async () => {
     render(
-      <Provider store={store}>
+      <Provider store={initStore(preloadState)}>
         <Home />
       </Provider>
     );
@@ -105,7 +111,7 @@ describe('Search Card', () => {
 describe('Error Message', () => {
   it('fetches with error', async () => {
     render(
-      <Provider store={store}>
+      <Provider store={initStore(preloadState)}>
         <Home />
       </Provider>
     );

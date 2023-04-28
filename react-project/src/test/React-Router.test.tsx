@@ -2,7 +2,8 @@ import React from 'react';
 
 import { describe, it } from 'vitest';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { store } from '../client/redux/store';
+import { initStore } from '../client/redux/store';
+import { preloadState } from './Api.test';
 import { Provider } from 'react-redux';
 
 import App from '../client/App';
@@ -13,7 +14,7 @@ describe('React Router', () => {
   it('render home page', () => {
     const { container } = render(
       <BrowserRouter>
-        <Provider store={store}>
+        <Provider store={initStore(preloadState)}>
           <App />
         </Provider>
       </BrowserRouter>
@@ -29,7 +30,7 @@ describe('React Router', () => {
   it('should navigate to page', () => {
     render(
       <BrowserRouter>
-        <Provider store={store}>
+        <Provider store={initStore(preloadState)}>
           <Header />
         </Provider>
       </BrowserRouter>
@@ -38,7 +39,7 @@ describe('React Router', () => {
     const link = screen.getByText('About Us');
     expect(title).not.toHaveTextContent('About Us');
     fireEvent.click(link);
-    expect(link).toHaveClass('_active-link_c088e7');
+    expect(link).toHaveClass('_active-link_7dedab');
     expect(title).toHaveTextContent('About Us');
   });
 });
@@ -48,7 +49,7 @@ describe('React Router', () => {
     const badRoute = '/error';
     render(
       <MemoryRouter initialEntries={[badRoute]}>
-        <Provider store={store}>
+        <Provider store={initStore(preloadState)}>
           <App />
         </Provider>
       </MemoryRouter>

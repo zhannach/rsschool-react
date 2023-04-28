@@ -2,7 +2,8 @@ import React from 'react';
 
 import { describe, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { store } from '../client/redux/store';
+import { initStore } from '../client/redux/store';
+import { preloadState } from './Api.test';
 import { Provider } from 'react-redux';
 
 import userEvent from '@testing-library/user-event';
@@ -21,7 +22,7 @@ const fakeFormData = {
 describe('FormPage', () => {
   it('render page', () => {
     render(
-      <Provider store={store}>
+      <Provider store={initStore(preloadState)}>
         <FormPage />
       </Provider>
     );
@@ -34,7 +35,7 @@ describe('FormPage', () => {
 describe('FormPage', () => {
   it('render card', async () => {
     render(
-      <Provider store={store}>
+      <Provider store={initStore(preloadState)}>
         <FormPage />
       </Provider>
     );
@@ -59,7 +60,7 @@ describe('FormPage', () => {
   });
   it('should call setTimeout', () => {
     render(
-      <Provider store={store}>
+      <Provider store={initStore(preloadState)}>
         <FormPage />
       </Provider>
     );

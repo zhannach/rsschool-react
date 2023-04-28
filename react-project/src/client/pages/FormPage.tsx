@@ -14,7 +14,7 @@ const FormPage = () => {
   return (
     <div className={styles.container}>
       <section className={styles['form-content']}>
-        <h1 className={styles.title}>Order book</h1>
+        <h2 className={styles.title}>Order book</h2>
         <Form />
         <div className={styles['form-list']}>
           {cards.length > 0

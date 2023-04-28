@@ -2,7 +2,8 @@ import React from 'react';
 
 import { describe, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { store } from '../client/redux/store';
+import { initStore } from '../client/redux/store';
+import { preloadState } from './Api.test';
 
 import userEvent from '@testing-library/user-event';
 import Form from '../client/components/Form';
@@ -11,7 +12,7 @@ import { Provider } from 'react-redux';
 describe('render button', () => {
   it('submit button', () => {
     render(
-      <Provider store={store}>
+      <Provider store={initStore(preloadState)}>
         <Form />
       </Provider>
     );
@@ -23,7 +24,7 @@ describe('render button', () => {
 describe('render form', () => {
   it('6 types of inputs', () => {
     render(
-      <Provider store={store}>
+      <Provider store={initStore(preloadState)}>
         <Form />
       </Provider>
     );
@@ -39,7 +40,7 @@ describe('render form', () => {
 describe('checkbox subscribe events', () => {
   it('checkbox subscribe click', async () => {
     render(
-      <Provider store={store}>
+      <Provider store={initStore(preloadState)}>
         <Form />
       </Provider>
     );
@@ -55,7 +56,7 @@ describe('checkbox subscribe events', () => {
 describe('input text events', () => {
   it('type text', async () => {
     render(
-      <Provider store={store}>
+      <Provider store={initStore(preloadState)}>
         <Form />
       </Provider>
     );
@@ -69,7 +70,7 @@ describe('input text events', () => {
 describe('checkbox events', () => {
   it('checkbox bookcover click', async () => {
     render(
-      <Provider store={store}>
+      <Provider store={initStore(preloadState)}>
         <Form />
       </Provider>
     );
@@ -84,7 +85,7 @@ describe('checkbox events', () => {
 describe('select events', () => {
   it('select option', async () => {
     render(
-      <Provider store={store}>
+      <Provider store={initStore(preloadState)}>
         <Form />
       </Provider>
     );
@@ -100,7 +101,7 @@ describe('select events', () => {
 describe('date events', () => {
   it('select date', async () => {
     render(
-      <Provider store={store}>
+      <Provider store={initStore(preloadState)}>
         <Form />
       </Provider>
     );
@@ -114,7 +115,7 @@ describe('date events', () => {
 describe('Form', () => {
   it('reset form', async () => {
     render(
-      <Provider store={store}>
+      <Provider store={initStore(preloadState)}>
         <Form />
       </Provider>
     );
@@ -128,7 +129,7 @@ describe('Form', () => {
 describe('Form', () => {
   it('upload img', async () => {
     render(
-      <Provider store={store}>
+      <Provider store={initStore(preloadState)}>
         <Form />
       </Provider>
     );
