@@ -10,6 +10,7 @@ export type Book = {
   pageCount: number;
   title: string;
   publishedDate: number;
+  infoLink: string;
 };
 
 export type BookResponse = {

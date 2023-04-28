@@ -13,16 +13,18 @@
 
 body {
   margin: 0;
-  display: flex;
 }
 
 // main-content
 
 .container {
   margin: 0 auto;
+  flex: 1 0 auto;
+  width: 100%;
 }
 
 .search {
+  align-self: flex-start;
   display: flex;
   align-items: center;
   margin: 60px 0px 40px 100px;
@@ -85,22 +87,80 @@ body {
   row-gap: 50px;
 }
 
+%book-rounded-corners {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+$color-bg: #fde3a7;
+$book-color-bg: lighten($color-bg, 20%);
+$book-color-border: lighten(#000, 85%);
+$book-border: 1px solid $book-color-border;
+
 .card {
   display: flex;
   height: 350px;
   width: 30%;
   margin: 0 20px;
 
-  & img {
-    height: auto;
-    width: 50%;
-    margin-right: 15px;
+  .img-section {
+    @extend %book-rounded-corners;
+
+    width: 250px;
+    height: 350px;
+    margin-right: 20px;
     cursor: pointer;
+    position: relative;
+    background: $book-color-bg;
+    z-index: 1;
+    box-shadow: 0 2px 4px 0 rgba(#000, 0.1), 0 9px 20px 0 rgba(#000, 0.25);
+    overflow: hidden;
+    transition: box-shadow 0.3s linear;
+
+    & img {
+      @extend %book-rounded-corners;
+
+      width: 100%;
+      height: 100%;
+      transform-origin: 0 50%;
+      transform: rotateY(0);
+      transition: all 0.45s ease;
+    }
+
+    &:hover {
+      box-shadow: 0 2px 4px 0 rgba(#000, 0.25), 0 9px 20px 0 rgba(#000, 0.45);
+      & img {
+        transform: rotateY(-25deg);
+        box-shadow: 1px 1px 5px 5px rgba(#000, 0.2);
+      }
+    }
+
+    &::after,
+    &::before {
+      @extend %book-rounded-corners;
+      content: '';
+      display: block;
+      width: inherit;
+      height: inherit;
+      position: absolute;
+      z-index: -1;
+      top: 0;
+      background: $book-color-bg;
+      border: $book-border;
+    }
+
+    &::before {
+      left: -3px;
+    }
+    &::after {
+      left: -6px;
+    }
   }
 }
 
 .info-section {
   display: flex;
+  width: 40%;
   flex-direction: column;
   justify-content: space-around;
   row-gap: 10px;
@@ -126,7 +186,7 @@ body {
 
 .modal {
   position: fixed;
-  z-index: 1;
+  z-index: 2;
   left: 0;
   top: 0;
   width: 100%;
