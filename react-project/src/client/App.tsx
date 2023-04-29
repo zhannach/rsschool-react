@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import Home from './pages/Home';
-import About from './pages/About';
+import About from './pages/Favorites';
 import NotFound from './pages/NotFound';
 import Layout from './components/Layout';
 import FormPage from './pages/FormPage';
@@ -13,7 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />}></Route>
-          <Route path="/about" element={<About />}></Route>
+          <Route path="/favorites" element={<About />}></Route>
           <Route path="/form" element={<FormPage />}></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Route>

@@ -6,7 +6,7 @@ import style from '../assets/styles/Header.module.scss';
 const Header = () => {
   const title: Record<string, string> = {
     '/': 'Home',
-    '/about': 'About Us',
+    '/favorites': 'Favorites',
     '/form': 'Form Page',
   };
   const location = useLocation();
@@ -23,10 +23,10 @@ const Header = () => {
             </li>
             <li>
               <NavLink
-                to="/about"
+                to="/favorites"
                 className={({ isActive }) => (isActive ? style['active-link'] : '')}
               >
-                About Us
+                Favorites
               </NavLink>
             </li>
             <li>

@@ -11,6 +11,7 @@ export type Book = {
   title: string;
   publishedDate: number;
   infoLink: string;
+  description: string;
 };
 
 export type BookResponse = {
