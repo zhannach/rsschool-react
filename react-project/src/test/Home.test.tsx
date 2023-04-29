@@ -69,6 +69,6 @@ describe('About', () => {
         <About />
       </Provider>
     );
-    expect(screen.getByText(/About us/i)).toBeInTheDocument();
+    expect(screen.getByText(/Favorites/i)).toBeInTheDocument();
   });
 });

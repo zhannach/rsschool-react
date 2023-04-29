@@ -24,4 +24,16 @@ describe('HomePage E2E', () => {
     cy.get('[data-testid="close-modal"]').click();
     cy.get('input').should('be.visible');
   });
+
+  it('should add to favorites', () => {
+    cy.get('img').first().click();
+    cy.get('button').last().should('have.text', 'Add');
+    cy.get('button').last().click();
+    cy.get('[data-testid="close-modal"]').click();
+    cy.visit('/favorites');
+    cy.get('img').should('be.visible');
+    cy.get('img').should('have.length', '1');
+    cy.get('button').last().click();
+    cy.contains("You haven't added the book to your favorite list yet.");
+  });
 });

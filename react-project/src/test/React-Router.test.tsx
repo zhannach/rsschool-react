@@ -36,11 +36,11 @@ describe('React Router', () => {
       </BrowserRouter>
     );
     const title = screen.getByRole('heading');
-    const link = screen.getByText('About Us');
-    expect(title).not.toHaveTextContent('About Us');
+    const link = screen.getByText('Favorites');
+    expect(title).not.toHaveTextContent('Favorites');
     fireEvent.click(link);
     expect(link).toHaveClass('_active-link_7dedab');
-    expect(title).toHaveTextContent('About Us');
+    expect(title).toHaveTextContent('Favorites');
   });
 });
 
