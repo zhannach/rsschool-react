@@ -3,6 +3,8 @@ import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom/server';
 import { Provider } from 'react-redux';
 import { initStore, RootState, Store } from './redux/store';
+import { persistStore } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
 
 import App from './App';
 import { Item } from '../client/types/form';
@@ -24,11 +26,14 @@ export function render(
   store: Store,
   opts: ReactDOMServer.RenderToPipeableStreamOptions | undefined
 ) {
+  const persistor = persistStore(store);
   const { pipe } = ReactDOMServer.renderToPipeableStream(
     <React.StrictMode>
       <StaticRouter location={url}>
         <Provider store={store}>
-          <App />
+          <PersistGate loading={null} persistor={persistor}>
+            <App />
+          </PersistGate>
         </Provider>
       </StaticRouter>
     </React.StrictMode>,

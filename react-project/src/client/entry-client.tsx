@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import { initStore, RootState } from './redux/store';
+import { persistStore } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
 
 declare global {
   interface Window {
@@ -13,6 +15,7 @@ declare global {
 
 const container = document.getElementById('app');
 const store = initStore(window.__PRELOADED_STATE__);
+const persistor = persistStore(store);
 
 delete window.__PRELOADED_STATE__;
 
@@ -20,7 +23,9 @@ const FullApp = () => (
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        <App />
+        <PersistGate loading={null} persistor={persistor}>
+          <App />
+        </PersistGate>
       </Provider>
     </BrowserRouter>
   </React.StrictMode>
