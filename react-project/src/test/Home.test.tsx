@@ -8,7 +8,7 @@ import { preloadState } from './Api.test';
 import { Provider } from 'react-redux';
 
 import Search from '../client/components/Search';
-import About from '../client/pages/About';
+import About from '../client/pages/Favorites';
 
 describe('Search', () => {
   it('renders search input', () => {

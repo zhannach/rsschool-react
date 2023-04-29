@@ -27,11 +27,14 @@ const Card = (props: { card: BookData }) => {
         />
       )}
       <div className={style.card} onClick={handleClick}>
-        <img
-          src={`${card.imageLinks.thumbnail}&fife=w400-h600`}
-          className={style.img}
-          alt={card.title}
-        ></img>
+        <div className={style['img-section']}>
+          <img
+            src={`${card.imageLinks.thumbnail}&fife=w400-h600`}
+            className={style.img}
+            alt={card.title}
+          ></img>
+        </div>
+
         <div className={style['info-section']}>
           <h3 className={style.info}>
             <p className={style['info-text']}>Title: </p>

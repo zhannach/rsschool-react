@@ -309,6 +309,7 @@ $book-border: 1px solid $book-color-border;
 .btn-add {
   @include btn();
   background-color: rgb(179, 168, 229);
+  padding: 0px 10px;
   &:hover {
     background-color: rgb(149, 141, 188);
   }

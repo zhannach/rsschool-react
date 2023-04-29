@@ -1,19 +1,34 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import type { RootState } from '../redux/store';
 import { useGetCardQuery } from '../redux/booksApi';
 import Loader from './Loader';
+import heart from '../assets/img/heart.png';
 
 import style from '../assets/styles/Home.module.scss';
+import { addFavoriteCard } from '../redux/slices/favoritesSlice';
+import { Book } from '../types/home';
 
 const Modal = (props: { onCloseModal: () => void }) => {
   const id = useSelector((state: RootState) => state.card.cardId);
+  const favorites = useSelector((state: RootState) => state.favorites.favoriteCards);
+  const [isFavorites, setIsFavorite] = useState(() => {
+    return favorites.some((card) => card.id === id);
+  });
   const { data: card, isLoading, isFetching } = useGetCardQuery(id);
+  const dispatch = useDispatch();
 
   if (isLoading || isFetching) {
     return <Loader />;
   }
+
+  const handleAddFav = () => {
+    if (!isFavorites) {
+      setIsFavorite(true);
+      dispatch(addFavoriteCard({ id, volumeInfo: card as Book }));
+    }
+  };
   return (
     <div className={style.modal} onClick={() => props.onCloseModal()}>
       <div className="modal-dialog">
@@ -57,8 +72,12 @@ const Modal = (props: { onCloseModal: () => void }) => {
                   {card.pageCount}
                 </span>
                 <div className={style.btns}>
-                  <button className={style['btn-buy']}>Buy</button>
-                  <button className={style['btn-add']}>Add</button>
+                  <a href={card.infoLink} target="_blank" rel="noreferrer">
+                    <button className={style['btn-buy']}>Buy</button>
+                  </a>
+                  <button onClick={handleAddFav} className={style['btn-add']}>
+                    {isFavorites ? <img src={heart}></img> : 'Add'}
+                  </button>
                 </div>
               </div>
             </div>

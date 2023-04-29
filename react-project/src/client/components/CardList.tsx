@@ -8,10 +8,18 @@ import Loader from './Loader';
 
 import { BookData } from '../types/home';
 import type { RootState } from '../redux/store';
+import useDebounce from '../helpers/debounce';
 
 const CardList = () => {
   const searchValue = useSelector((state: RootState) => state.search.value);
-  const { data = [], isLoading, isSuccess, isFetching, isError } = useGetCardsQuery(searchValue);
+  const debouncedSearchQuery = useDebounce(searchValue, 100);
+  const {
+    data = [],
+    isLoading,
+    isSuccess,
+    isFetching,
+    isError,
+  } = useGetCardsQuery(debouncedSearchQuery);
 
   let content;
   if (isLoading || isFetching) {
