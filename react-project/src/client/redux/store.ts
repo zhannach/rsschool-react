@@ -1,4 +1,4 @@
-import { combineReducers, configureStore, StateFromReducersMapObject } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import cardSlice from './slices/cardSlice';
 import formCardsSlice from './slices/formCardsSlice';
 import searchSlice from './slices/searchSlice';
@@ -24,5 +24,5 @@ export const initStore = (preloadedState?: Partial<RootState>) =>
   });
 
 export type Store = ReturnType<typeof initStore>;
-export type RootState = StateFromReducersMapObject<typeof bookReducer>;
+export type RootState = ReturnType<typeof bookReducer>;
 export type AppDispatch = Store['dispatch'];

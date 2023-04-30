@@ -27,4 +27,16 @@ describe('FormPage E2E', () => {
     cy.contains('Submit').click();
     cy.get('input[type="date"]').should('have.value', '2021-10-28');
   });
+
+  it('should create card form', () => {
+    cy.get('input[type="text"]').type('Richard');
+    cy.get('input[type="date"]').type('2022-10-28');
+    cy.get('select').select('English');
+    cy.get('input[type="checkbox"]').first().check();
+    cy.get('input[type="radio"]').first().check();
+    cy.get('input[type="file"]').selectFile('./public/books.png');
+    cy.get('button').click();
+    cy.get('input[type="text"]').should('have.value', '');
+    cy.contains('Richard');
+  });
 });
