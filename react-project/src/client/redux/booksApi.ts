@@ -22,9 +22,10 @@ export const booksApi = createApi({
         }&maxResults=${fetchArg.maxResults}&startIndex=${fetchArg.startIndex}`,
       }),
       transformResponse: (response: BookResponse) => {
-        return response.items
+        const items = response.items
           ? response.items.filter((el: BookData) => el.volumeInfo.imageLinks)
           : [];
+        return { cards: items, totalCards: response.totalItems };
       },
     }),
     getCard: builder.query({

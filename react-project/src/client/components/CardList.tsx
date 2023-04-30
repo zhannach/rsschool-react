@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useGetCardsQuery } from '../redux/booksApi';
 import styles from '../assets/styles/Home.module.scss';
 
@@ -9,33 +9,35 @@ import Loader from './Loader';
 import { BookData } from '../types/home';
 import type { RootState } from '../redux/store';
 import useDebounce from '../helpers/debounce';
+import { setTotalCards } from '../redux/slices/cardSlice';
 
-export const MAKS_RESULTS = 9;
+export const MAX_RESULTS = 9;
 
 const CardList = () => {
   const startIndex = useSelector((state: RootState) => state.search.startIndex);
   const searchValue = useSelector((state: RootState) => state.search.value);
-  const MAKS_RESULTS = 9;
   const debouncedSearchQuery = useDebounce(searchValue, 100);
   const debouncedStartIndex = useDebounce(startIndex, 100);
   const {
-    data = [],
+    data = { cards: [], totalCards: 0 },
     isLoading,
     isSuccess,
     isFetching,
     isError,
   } = useGetCardsQuery({
     value: debouncedSearchQuery,
-    maxResults: MAKS_RESULTS,
+    maxResults: MAX_RESULTS,
     startIndex: debouncedStartIndex,
   });
+  const dispatch = useDispatch();
+  dispatch(setTotalCards(data.totalCards));
 
   let content;
   if (isLoading || isFetching) {
     content = <Loader />;
-  } else if (isSuccess && data.length !== 0) {
-    content = data.map((card: BookData) => <Card key={card.id} card={card} />);
-  } else if (isError || data.length === 0) {
+  } else if (isSuccess && data.cards.length !== 0) {
+    content = data.cards.map((card: BookData) => <Card key={card.id} card={card} />);
+  } else if (isError || data.totalCards === 0) {
     content = (
       <h2 className={styles.error}>
         Oops, it looks like there is no such book. Try another search.
