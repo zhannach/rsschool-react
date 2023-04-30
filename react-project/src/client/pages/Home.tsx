@@ -4,6 +4,7 @@ import Search from '../components/Search';
 import CardList from '../components/CardList';
 
 import styles from '../assets/styles/Home.module.scss';
+import Pagination from '../components/Pagination';
 
 const Home = () => {
   return (
@@ -12,6 +13,7 @@ const Home = () => {
       <section className={styles.cards}>
         <CardList />
       </section>
+      <Pagination />
     </div>
   );
 };

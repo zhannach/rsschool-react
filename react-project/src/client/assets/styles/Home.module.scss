@@ -315,6 +315,30 @@ $book-border: 1px solid $book-color-border;
   }
 }
 
+.paginate {
+  display: flex;
+  column-gap: 20px;
+  justify-content: center;
+  margin: 50px 0 70px;
+  & li {
+    padding: 8px 12px;
+    background-color: $btn-color-light;
+    border-radius: 10px;
+    cursor: pointer;
+    &:hover {
+      background-color: rgb(149, 141, 188);
+    }
+    &.active {
+      background-color: rgb(90, 77, 149);
+    }
+  }
+  & a {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+}
+
 @media (max-width: 1280px) {
   .card {
     width: 45%;

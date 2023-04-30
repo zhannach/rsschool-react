@@ -16,8 +16,10 @@ export const booksApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'https://www.googleapis.com/books/v1/volumes' }),
   endpoints: (builder) => ({
     getCards: builder.query({
-      query: (value) => ({
-        url: `https://www.googleapis.com/books/v1/volumes?q=${value || 'react'}&maxResults=30`,
+      query: (fetchArg: { value: string; maxResults: number; startIndex: number }) => ({
+        url: `https://www.googleapis.com/books/v1/volumes?q=${
+          fetchArg.value || 'react'
+        }&maxResults=${fetchArg.maxResults}&startIndex=${fetchArg.startIndex}`,
       }),
       transformResponse: (response: BookResponse) => {
         return response.items

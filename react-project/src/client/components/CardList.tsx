@@ -10,16 +10,25 @@ import { BookData } from '../types/home';
 import type { RootState } from '../redux/store';
 import useDebounce from '../helpers/debounce';
 
+export const MAKS_RESULTS = 9;
+
 const CardList = () => {
+  const startIndex = useSelector((state: RootState) => state.search.startIndex);
   const searchValue = useSelector((state: RootState) => state.search.value);
+  const MAKS_RESULTS = 9;
   const debouncedSearchQuery = useDebounce(searchValue, 100);
+  const debouncedStartIndex = useDebounce(startIndex, 100);
   const {
     data = [],
     isLoading,
     isSuccess,
     isFetching,
     isError,
-  } = useGetCardsQuery(debouncedSearchQuery);
+  } = useGetCardsQuery({
+    value: debouncedSearchQuery,
+    maxResults: MAKS_RESULTS,
+    startIndex: debouncedStartIndex,
+  });
 
   let content;
   if (isLoading || isFetching) {
