@@ -12,6 +12,12 @@ import { Provider } from 'react-redux';
 
 import { errorHandler, handlers } from './mock/handlers.mock';
 import { Item } from 'client/types/form';
+import nodeFetch, { Request, Response } from 'node-fetch';
+
+global.fetch = nodeFetch;
+global.Request = Request;
+global.Response = Response;
+
 export const preloadState = {
   search: { value: '' },
   card: { cardId: '' },
