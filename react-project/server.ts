@@ -5,7 +5,6 @@ import compression from 'compression';
 import serialize from 'serialize-javascript';
 import { createServer as createViteServer } from 'vite';
 import { fileURLToPath } from 'url';
-import { getStore } from './src/client/entry-server';
 
 const isTest = process.env.NODE_ENV === 'test' || !!process.env.VITE_TEST_BUILD;
 
@@ -29,7 +28,7 @@ async function createServer(isProd = process.env.NODE_ENV === 'production') {
   const { render, getStore } = await vite.ssrLoadModule(
     path.join(__dirname, './src/client/entry-server.tsx')
   );
-  
+
   app.use('*', async (req, res) => {
     res.writeHead(200, { 'Content-Type': 'text/html' });
     const store = await getStore();

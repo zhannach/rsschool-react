@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useGetCardsQuery } from '../redux/booksApi';
 import styles from '../assets/styles/Home.module.scss';
@@ -11,7 +11,12 @@ import type { RootState } from '../redux/store';
 
 const CardList = () => {
   const searchValue = useSelector((state: RootState) => state.search.value);
-  const { data = [], isLoading, isSuccess, isFetching, isError } = useGetCardsQuery(searchValue);
+  const [localValue, setLocalValue] = useState('');
+  const { data = [], isLoading, isSuccess, isFetching, isError } = useGetCardsQuery(localValue);
+
+  useEffect(() => {
+    setLocalValue(searchValue);
+  }, [searchValue]);
 
   let content;
   if (isLoading || isFetching) {
