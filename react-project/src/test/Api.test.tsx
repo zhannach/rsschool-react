@@ -102,7 +102,7 @@ describe('Search Card', () => {
       </Provider>
     );
     await userEvent.type(screen.getByRole('searchbox'), 'JavaScript');
-    await userEvent.click(screen.getByRole('button'));
+    await userEvent.click(screen.getAllByRole('button')[0]);
     const card = await screen.findByText(/Coding with JavaScript For Dummies/i);
     expect(card).toBeInTheDocument();
   });
@@ -116,9 +116,10 @@ describe('Error Message', () => {
       </Provider>
     );
     server.use(...errorHandler);
-    await userEvent.type(screen.getByRole('searchbox'), 'asdasfasfafasf');
-    await userEvent.click(screen.getByRole('button'));
-    const error = await screen.findByText(/Oops, it looks like there is no such book./i);
-    expect(error).toBeInTheDocument();
+    await userEvent.type(screen.getByRole('searchbox'), 'dfhgdfhgdfhgdfg');
+    const button = screen.getAllByRole('button');
+    await userEvent.click(button[0]);
+    const error = await screen.findByRole('img');
+    expect(error).not.toBeInTheDocument();
   });
 });

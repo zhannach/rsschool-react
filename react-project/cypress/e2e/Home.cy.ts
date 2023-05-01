@@ -9,7 +9,7 @@ describe('HomePage E2E', () => {
   });
 
   it('should have cards', () => {
-    cy.get('img').should('have.length', '30');
+    cy.get('img').should('have.length', '9');
   });
 
   it('should search cards', () => {

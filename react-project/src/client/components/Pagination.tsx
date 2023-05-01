@@ -5,9 +5,11 @@ import ReactPaginate from 'react-paginate';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from '../assets/styles/Home.module.scss';
 import { RootState } from 'client/redux/store';
+import useDebounce from '../helpers/debounce';
 
 const Pagination = () => {
-  const totalCards = useSelector((state: RootState) => state.card.totalCards);
+  let totalCards = useSelector((state: RootState) => state.search.totalCards);
+  totalCards = useDebounce(totalCards, 100);
   const pages = Math.ceil(totalCards / MAX_RESULTS);
   const dispatch = useDispatch();
   const handlePageClick = (e: { selected: number }) => {

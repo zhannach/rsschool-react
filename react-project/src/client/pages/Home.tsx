@@ -9,14 +9,14 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 
 const Home = () => {
-  const totalCards = useSelector((state: RootState) => state.card.totalCards);
+  const totalCards = useSelector((state: RootState) => state.search.totalCards);
   return (
     <div className={styles.container}>
       <Search />
       <section className={styles.cards}>
         <CardList />
       </section>
-      {totalCards && <Pagination />}
+      {totalCards !== 0 && <Pagination />}
     </div>
   );
 };

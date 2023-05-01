@@ -70,6 +70,7 @@ export const errorHandler = [
     return res(
       ctx.json({
         items: [],
+        totalCards: 0,
       })
     );
   }),

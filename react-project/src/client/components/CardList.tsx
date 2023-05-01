@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useGetCardsQuery } from '../redux/booksApi';
 import styles from '../assets/styles/Home.module.scss';
@@ -9,15 +9,16 @@ import Loader from './Loader';
 import { BookData } from '../types/home';
 import type { RootState } from '../redux/store';
 import useDebounce from '../helpers/debounce';
-import { setTotalCards } from '../redux/slices/cardSlice';
+import { setTotalCards } from '../redux/slices/searchSlice';
 
 export const MAX_RESULTS = 9;
 
 const CardList = () => {
-  const startIndex = useSelector((state: RootState) => state.search.startIndex);
   const searchValue = useSelector((state: RootState) => state.search.value);
+  const startIndex = useSelector((state: RootState) => state.search.startIndex);
+  const dispatch = useDispatch();
   const debouncedSearchQuery = useDebounce(searchValue, 100);
-  const debouncedStartIndex = useDebounce(startIndex, 100);
+  const debouncedStartIndex = useDebounce(startIndex, 50);
   const {
     data = { cards: [], totalCards: 0 },
     isLoading,
@@ -29,8 +30,9 @@ const CardList = () => {
     maxResults: MAX_RESULTS,
     startIndex: debouncedStartIndex,
   });
-  const dispatch = useDispatch();
-  dispatch(setTotalCards(data.totalCards));
+  useEffect(() => {
+    dispatch(setTotalCards(data.totalCards));
+  }, [dispatch, data.totalCards]);
 
   let content;
   if (isLoading || isFetching) {

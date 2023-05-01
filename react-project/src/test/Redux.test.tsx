@@ -26,7 +26,7 @@ describe('formCardsSlice', () => {
 describe('searchSlice', () => {
   it('return initial state', () => {
     const result = searchSlice(undefined, { type: '' });
-    expect(result).toEqual({ value: '' });
+    expect(result).toEqual({ value: '', startIndex: 0, totalCards: 0 });
   });
 
   it('set searchValue', () => {
