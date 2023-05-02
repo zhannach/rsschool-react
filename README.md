@@ -32,6 +32,12 @@ Check the unit tests and code coverage:
 
 >npm run coverage
 
+![cypress](https://user-images.githubusercontent.com/87633082/235774957-eabac77d-d2bb-4fbd-8067-9cdb2aec2bbf.png)
+
+
 Check the e2e tests and code coverage:
 >npm run test:cypress
+
+![Screenshot from 2023-05-02 19-06-01](https://user-images.githubusercontent.com/87633082/235775093-00851e95-8176-4f2c-90b5-958837fd3e4a.png)
+
 
