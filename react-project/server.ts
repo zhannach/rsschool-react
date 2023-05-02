@@ -35,7 +35,7 @@ async function createServer(isProd = process.env.NODE_ENV === 'production') {
     const footer = parts[1].split('/* preload-state */');
     const stateString = `window.__PRELOADED_STATE__ = ${serialize({ ...store.getState() })}`;
     res.write(parts[0]);
-    const pipe = await render(req.url, store, {
+    const pipe = await render(req.originalUrl, store, {
       onShellReady() {
         pipe(res);
       },
