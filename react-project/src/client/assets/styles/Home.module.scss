@@ -1,0 +1,261 @@
+@import './normalize.css';
+@import './variables.scss';
+
+@mixin btn {
+  width: 70px;
+  height: 40px;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+body {
+  margin: 0;
+  display: flex;
+}
+
+// main-content
+
+.container {
+  margin: 0 auto;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  margin: 60px 0px 40px 100px;
+  position: relative;
+}
+
+.error {
+  margin: 40px 0;
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+.input {
+  width: 25vw;
+  height: 45px;
+  border-radius: 15px;
+  padding: 8px 8px 8px 50px;
+  font-size: 1.7rem;
+  border: 2px solid rgb(64, 84, 117);
+
+  &:focus {
+    border: none;
+    border: 2px solid $btn-color;
+  }
+}
+
+.btn {
+  width: 100px;
+  height: 45px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  border-radius: 10px;
+  margin-left: 10px;
+  background-color: $btn-color;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  &:hover {
+    background-color: rgb(39, 57, 92);
+  }
+}
+
+.svg {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  left: 10px;
+  top: 13%;
+  color: rgba(104, 108, 117, 0.6);
+}
+
+// cards
+
+.cards {
+  margin: 80px 40px;
+  display: flex;
+  min-height: 300px;
+  justify-content: center;
+  flex-wrap: wrap;
+  row-gap: 50px;
+}
+
+.card {
+  display: flex;
+  height: 350px;
+  width: 30%;
+  margin: 0 20px;
+
+  & img {
+    height: auto;
+    width: 50%;
+    margin-right: 15px;
+    cursor: pointer;
+  }
+}
+
+.info-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  row-gap: 10px;
+}
+
+.info {
+  font-size: 1.3rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.info-text {
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: 1.4rem;
+}
+
+.btns {
+  display: flex;
+  column-gap: 10px;
+  margin-top: 10px;
+}
+
+.modal {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.6);
+  animation-name: fadeIn;
+  animation-duration: 0.4s;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 20px;
+  width: 40%;
+  height: 30%;
+  animation-name: slideIn;
+  animation-duration: 0.4s;
+  position: relative;
+}
+
+.modal-card {
+  display: flex;
+  padding: 15px;
+  column-gap: 20px;
+}
+
+.modal-img {
+  width: 50%;
+}
+
+.close {
+  font-size: 45px;
+  font-weight: 600;
+  position: absolute;
+  left: 90%;
+  top: 2%;
+  display: inline-block;
+  text-align: end;
+  &:hover,
+  :focus {
+    color: rgb(108, 106, 106);
+    text-decoration: none;
+    cursor: pointer;
+  }
+}
+
+@-webkit-keyframes slideIn {
+  from {
+    bottom: -300px;
+    opacity: 0;
+  }
+  to {
+    bottom: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    bottom: -300px;
+    opacity: 0;
+  }
+  to {
+    bottom: 0;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes slideIn {
+  from {
+    bottom: -300px;
+    opacity: 0;
+  }
+  to {
+    bottom: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    bottom: -300px;
+    opacity: 0;
+  }
+  to {
+    bottom: 0;
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.btn-buy {
+  @include btn();
+  background-color: $btn-color;
+  &:hover {
+    background-color: rgb(39, 57, 92);
+  }
+}
+
+.btn-add {
+  @include btn();
+  background-color: rgb(179, 168, 229);
+  &:hover {
+    background-color: rgb(149, 141, 188);
+  }
+}
+
+@media (max-width: 1280px) {
+  .card {
+    width: 45%;
+  }
+}
